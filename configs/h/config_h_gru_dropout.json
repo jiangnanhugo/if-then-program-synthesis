@@ -1,0 +1,41 @@
+{
+   "max_word_id": 4000,
+   "bidirectional": true,
+   "cell_type": "gru",
+   "decoder": "attention",
+   "embedding_size": 150,
+   "keep_prob": 0.45,
+   "memory_size": 25,
+   "num_layers": 1,
+   "num_units": 150,
+   "use_embedding": true,
+   "epoches": 30,
+   "batch_size": 64,
+   "init": {
+      "name": "random_uniform_initializer",
+      "scale": 0.1
+   },
+   "lr_scheduler": {
+      "decay_steps": 7000,
+      "init_lr": 0.002,
+      "decay_rate": 0.9,
+      "staircase": true
+   },
+   "max_grad_norm": 5,
+   "optimizer": "AdamOptimizer",
+   "dict_file": {
+      "zero_two_bipartite": "./dataset/ifttt/zero_two_bipartite.txt",
+      "one_three_bipartite": "./dataset/ifttt/one_three_bipartite.txt",
+      "zero_one_bipartite": "./dataset/ifttt/zero_one_bipartite.txt",
+      "two_three_bipartite": "./dataset/ifttt/two_three_bipartite.txt",
+      "two_zero_bipartite": "./dataset/ifttt/zero_two_bipartite.txt",
+      "three_one_bipartite": "./dataset/ifttt/one_three_bipartite.txt",
+      "one_zero_bipartite": "./dataset/ifttt/zero_one_bipartite.txt",
+      "three_two_bipartite": "./dataset/ifttt/two_three_bipartite.txt",
+      "zero2index": "./dataset/ifttt/zero2index.txt",
+      "one2index": "./dataset/ifttt/one2index.txt",
+      "two2index": "./dataset/ifttt/two2index.txt",
+      "three2index": "./dataset/ifttt/three2index.txt"
+   }
+}
+

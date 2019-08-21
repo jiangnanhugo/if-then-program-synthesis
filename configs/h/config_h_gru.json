@@ -1,0 +1,27 @@
+{
+   "max_word_id": 4000,
+   "bidirectional": true,
+   "cell_type": "gru",
+   "decoder": "attention",
+   "embedding_size": 150,
+   "keep_prob": 0.5,
+   "memory_size": 25,
+   "num_layers": 1,
+   "num_units": 150,
+   "use_embedding": true,
+   "epoches": 30,
+   "batch_size": 32,
+   "init": {
+      "name": "random_uniform_initializer",
+      "scale": 0.1
+   },
+   "lr_scheduler": {
+      "decay_steps": 7000,
+      "init_lr": 0.004,
+      "decay_rate": 0.9,
+      "staircase": true
+   },
+   "max_grad_norm": 5,
+   "optimizer": "AdamOptimizer"
+}
+
