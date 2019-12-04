@@ -5,28 +5,33 @@ from collections import defaultdict
 import json
 import random
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import shutil
-import sys
 import datetime
-import tempfile
 from tqdm import tqdm
 import tensorflow as tf
-tf.logging.set_verbosity(tf.logging.ERROR)
 import tf_utils
-from tf_utils import IFTTTLModel
+from tf_utils import IFTTTLModel, get_vps
 import numpy as np
 np.set_printoptions(precision=4)
+np.set_printoptions(linewidth=np.inf)
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 
 class MainLoop(object):
-    def __init__(self, args, config):
+    def __init__(self, args, config, vps_max_width):
         self.config = config
-        self.root_logdir = args.logdir
-        self.output_file = args.output
-        self.label_size = [112, 495, 87, 201]
+        self.output_dir = args.output
         self.data = pickle.load(open(args.dataset, 'rb'), encoding="latin1")
         self.max_desc_length = 0
+
+        all_labels = self.get_label_instance(self.data)
+
+        self.vps = get_vps(all_labels, vps_max_width, self.output_dir, self.data['category'])
+
+        self.label2index = self.data['label2index']
+        self.index2label = self.data['index2label']
+        self.label_size = [len(x) for x in self.data['index2label']]
 
         for item in (self.data['train'] + self.data['dev']):
             self.max_desc_length = max(self.max_desc_length, len(item['ids']))
@@ -61,6 +66,47 @@ class MainLoop(object):
         else:
             self.vocab_size = len(self.data['word_ids'])
 
+
+    @staticmethod
+    def get_label_instance(datadict):
+        names = [it['label_names'] for it in datadict['train']]
+        names += [it['label_names'] for it in datadict['dev']]
+        label_names = []
+        for na in names:
+            na = [x.lower() for x in na]
+            if na not in label_names:
+                label_names.append(na)
+        print("# path", len(label_names))
+        # label_names=label_names[:10]
+        return label_names
+
+    def get_mask(self, label_names):
+        neighbors = self.vps.find_neighbor_along_path(label_names)
+        batch_mask = []
+        for i in range(4):
+            m = np.zeros(shape=self.label_size[i], dtype=np.float32)
+            for neib in neighbors[i]:
+                wid = self.label2index[i][neib]
+                m[wid] = 1.0
+            batch_mask.append(m)
+        return batch_mask
+
+    def update_mask_with_depth(self, label_names, w):
+        batch_mask = [np.ones((self.config['batch_size'], self.label_size[ii]), dtype=np.int32) for ii in range(4)]
+        for j in range(len(label_names)):
+            new_labels = label_names[j][:w]
+            neighbors = self.vps.find_last_neighbor_along_path(new_labels)
+            for i in range(4):
+                if i <= w:
+                    m = np.zeros(shape=self.label_size[i], dtype=np.float32)
+                    for neib in neighbors[i]:
+                        wid = self.label2index[i][neib]
+                        m[wid] = 1.0
+                else:
+                    m = np.ones(shape=self.label_size[i], dtype=np.float32)
+                batch_mask[i][j, :] = m
+        return batch_mask
+
     def read(self, cur_point):
         if cur_point == 0:
             random.shuffle(self.bucketed_train[0])
@@ -72,13 +118,19 @@ class MainLoop(object):
         return self.get_batch(batch)
 
     def get_batch(self, batch):
-        # [batch_size(32), max_seq_len(25)]
-        ids = tf_utils.make_array([item['ids'] for item in batch], length=self.memory_size)
-        # [batch_size(32)]
-        ids_lengths = np.array([len(item['ids']) for item in batch])
-        # [batch_size(32), label types(4)]
-        labels = np.asarray([x['labels'] for x in batch], dtype=np.int32)
-        return ids, ids_lengths, labels
+        ids = tf_utils.make_array([item['ids'] for item in batch], length=self.memory_size)  # [batch_size(32), max_seq_len(25)]
+        ids_lengths = np.array([len(item['ids']) for item in batch])                         # [batch_size(32)]
+        labels = np.zeros((self.config['batch_size'], 4), dtype=np.int32)
+        batch_mask = [np.zeros((self.config['batch_size'], self.label_size[i]), dtype=np.int32) for i in range(4)]
+        for i, item in enumerate(batch):
+            lab = [x.lower() for x in item['label_names']]
+            lab = [self.label2index[j][lab[j]] for j in range(4)]  # for ext exp
+            labels[i, :] = lab
+            mask = self.get_mask(item['label_names'])
+            for j in range(4):
+                batch_mask[j][i, :] = mask[j]
+
+        return ids, ids_lengths, labels, batch_mask
 
     def get_batch_full(self, batch, batch_size):
         ids = tf_utils.make_array([item['ids'] for item in batch], length=self.memory_size, batch_size=batch_size)
@@ -87,14 +139,16 @@ class MainLoop(object):
             ids_lengths[i] = len(item['ids'])
         labels = np.zeros((batch_size, 4))
         for i, item in enumerate(batch):
-            labels[i] = item['labels']
+            lab = [x.lower() for x in item['label_names']]
+            lab = [self.label2index[j][lab[j]] for j in range(4)]
+            labels[i, :] = lab
 
         return ids, ids_lengths, labels
 
     def create_model(self, is_train):
         return IFTTTLModel(self.config, self.vocab_size, self.memory_size, self.label_size, is_train)
 
-    def run(self, initializer, logdir, load_model=None):
+    def run(self, initializer, load_model=None):
         epoches = self.config['epoches']
         batch_size = self.config['batch_size']
         with tf.variable_scope('model', reuse=None, initializer=initializer):
@@ -102,79 +156,102 @@ class MainLoop(object):
         with tf.variable_scope('model', reuse=True, initializer=initializer):
             model_valid = self.create_model(is_train=False)
         saver = tf.train.Saver(max_to_keep=0)
-        session = tf.Session()
-        # intialize the params
+        config = tf.ConfigProto()
+        config.gpu_options.per_process_gpu_memory_fraction = 0.5
+        session = tf.Session(config=config)
+
         if load_model:
             saver.restore(session, os.path.join(args.logdir, 'model.ckpt-{}'.format(load_model)))
-            self.generate_test_summaries(session, model)
-            return
-            initial_global_step = model.global_step.assign(50)
-            session.run(initial_global_step)
         else:
             session.run(tf.global_variables_initializer())
-        # Disable automatic saving and deleting
-        supervisor = tf.train.Supervisor(logdir=logdir, summary_op=None, save_model_secs=0, saver=saver)
 
         epoch = 0
         cur_point = 0
         best_acc = 0.
-        while not supervisor.should_stop() and epoch <= epoches:
+        print("the graph width list : {}".format(self.vps.widthList))
+        while epoch <= epoches:
             epoch += 1
             iterations = int(len(self.bucketed_train[0]) / batch_size)
             c1 = 0
             loss = 0.
-            for _ in tqdm(range(iterations), leave=False):
+            # for _ in tqdm(range(iterations), leave=False):
+            for _ in range(iterations):
                 batch = self.read(cur_point)
                 cur_point += len(batch[0])
-                # Run 1 step with mini-batch
                 input_list = [model.xentropy, model.pred, model.train_op, model.global_step]
-                ids, ids_lengths, label = batch
+                ids, ids_lengths, label, batch_mask = batch
+                # for i in range(32):
+                #     for j in range(4):
+                #          print("i={}, j={}, mask={}".format(i, j, np.sum(batch_mask[j][i])))
+
                 feed_dict = dict({model.ids: ids,
                                   model.ids_lengths: ids_lengths,
-                                  model.label: label})
+                                  model.label: label,
+                                  model.batch_mask[0]: batch_mask[0],
+                                  model.batch_mask[1]: batch_mask[1],
+                                  model.batch_mask[2]: batch_mask[2],
+                                  model.batch_mask[3]: batch_mask[3]})
+
                 cost, pred, _, global_step = session.run(input_list, feed_dict)
+                # self.generate_test_summaries(session, model_valid)
                 loss += np.sum(cost)
                 correct = (pred[:batch_size] == label[:batch_size])
                 c1 += np.sum(correct)
                 # break
             # reset data pointer
             cur_point = 0
-            # print("c1:", format(c1/iterations, '.2f'), "loss:", format(loss/iterations, '.2f'), end="  ")
-
-            cur_acc = self.generate_test_summaries(session, model_valid)
-
+            print("iter=", epoch, end=" ")
+            cur_acc, int_acc = self.generate_test_summaries(session, model_valid)
             if cur_acc > best_acc:
                 best_acc = cur_acc
-                print("save acc:", format(cur_acc, '.4f'), 'time:', datetime.datetime.now(), end=' ')
+                print("save acc:", format(int_acc, '.4f'),
+                      'time:', datetime.datetime.now().isoformat(timespec='minutes'), end=' ')
             print()
-            # supervisor.saver.save(session, supervisor.save_path, global_step=global_step)
 
     def generate_test_summaries(self, session, model):
         batch_size = self.config['batch_size']
         num_correct = defaultdict(int)
         total = defaultdict(int)
-        for section in ('dev', 'test'):
+        for section in ('train', 'dev', 'test'):
             length = len(self.data[section])
             for i in range(0, length, batch_size):
-
                 batch = self.data[section][i:i + batch_size]
                 ids, ids_lengths, labels = self.get_batch_full(batch, batch_size)
-                feed_dict = dict({model.ids: ids, model.ids_lengths: ids_lengths})
-                pred = session.run([model.pred], feed_dict)[0]
+                batch_mask = [np.ones((self.config['batch_size'], self.label_size[ii]), dtype=np.int32) for ii in range(4)]
+                for iter in range(1, 4):
+                    feed_dict = dict({model.ids: ids,
+                                      model.ids_lengths: ids_lengths,
+                                      model.batch_mask[0]: batch_mask[0],
+                                      model.batch_mask[1]: batch_mask[1],
+                                      model.batch_mask[2]: batch_mask[2],
+                                      model.batch_mask[3]: batch_mask[3]})
 
-                for i, (pred, gd) in enumerate(zip(pred, labels)):
+                    pred = session.run(model.pred, feed_dict)
+                    predict_names = []
+                    for i in range(len(pred)):
+                       predict = []
+                       for j in range(4):
+                           lab_name = self.index2label[j][pred[i][j]]
+                           predict.append(lab_name)
+                       predict_names.append(predict)
+                    new_mask = self.update_mask_with_depth(predict_names, iter)
+                    # for p in range(32):
+                    #     for q in range(4):
+                    #         print("batch={}, layer={}, old_mask:{} new_mask:{} equal:{}".format(p,q,
+                    #                                                         np.sum(batch_mask[q][p]),
+                    #                                                         np.sum(new_mask[q][p]),
+                    #                                                         np.sum(batch_mask[q][p] == new_mask[q][p])))
+                    batch_mask=new_mask
+
+                for i, (pd, gd) in enumerate(zip(pred, labels)):
                     if len(batch) <= i:
                         break
+                    if pd[0]==gd[0] and  pd[1]==gd[1] and  pd[2]==gd[2] and  pd[3]==gd[3]:
+                        c1=1
+                    else:
+                        c1=0
                     total[section] += 1
-                    if pred[0] == gd[0] and pred[2] == gd[2]:
-                        c1 = 1
-                    else:
-                        c1 = 0
-                    if pred[1] == gd[1] and pred[3] == gd[3]:
-                        c2= 1
-                    else:
-                        c2 = 0
-                    num_correct[section] += c1
+                    num_correct[section] +=  c1
                     batchi = batch[i]
                     rows = batchi.get("tags", [])
                     for tag in rows:
@@ -183,111 +260,33 @@ class MainLoop(object):
 
         for section, correct in num_correct.items():
             print(section, format(correct / total[section], '.4f'), end='   ')  #
-        return num_correct['english'] / total['english']
+        return num_correct['dev'] / total['dev'], num_correct['intelligible'] / total['intelligible']
 
 
 def train(args):
-    if args.logdir is None:
-        args.logdir = tempfile.mkdtemp(prefix='ifttt_')
-        print(args.logdir)
-    if args.clear and not (args.number_logdir or args.test_logdir):
-        try:
-            shutil.rmtree(args.logdir)
-        except OSError:
-            pass
 
     # for training...
     config = json.load(open(args.config, 'r'))
     print("configure: {}".format(config))
-    tf_utils.mkdir_p(args.logdir)
-    print("writing log to: {}".format(args.logdir))
-    if args.number_logdir:
-        sub_logdirs = os.listdir(args.logdir)
-        sub_logdirs.sort()
-        logdir_id = int(sub_logdirs[-1]) + 1 if sub_logdirs else 0
-        args.logdir = os.path.join(args.logdir, '{:06d}'.format(logdir_id))
-        print("Log dir is: {}".format(args.logdir))
-        os.mkdir(args.logdir)
 
-    with open(os.path.join(args.logdir, 'config.json'), 'w') as fw:
-        print('dumping model config.json to: {}'.format(args.logdir))
-        json.dump(config, fw, indent=4)
 
     try:
-        # the training epoch
-        mainloop = MainLoop(args, config)
-        mainloop.run(mainloop.initializer, args.logdir, args.load_model)
+        mainloop = MainLoop(args, config, int(args.width))
+        mainloop.run(mainloop.initializer, args.load_model)
     except KeyboardInterrupt:
         print("keyboard exception, training terminated!")
         pass
-    print('Log dir: {}'.format(args.logdir))
-
-
-def evaluate_test():
-    print("Testing model with best parameters settings...")
-    config = json.load(open(os.path.join(args.logdir, 'config.json')))
-    stats = json.load(open(os.path.join(args.logdir, 'stats.json')))
-
-    print("building MainLoop ...")
-    ifttt_train = MainLoop(args, config)
-
-    with tf.variable_scope('model', reuse=None, initializer=None):
-        print('create model....')
-        m = ifttt_train.create_model(is_train=False)
-
-    for best_iter, name in zip(stats['best_iters'], stats['keys']):
-        print(name)
-        saver = tf.train.Saver(max_to_keep=0)
-        print("running sessions")
-        with tf.Session() as sess:
-            print("load the best model after training...")
-            saver.restore(sess, os.path.join(args.logdir, 'model.ckpt-{}'.format(int(best_iter))))
-            # section type -> label type -> rows
-            probs_by_section = defaultdict(lambda: [[] for i in range(4)])
-            labels_by_section = defaultdict(lambda: [[] for i in range(4)])
-
-            batch_size = ifttt_train.config['batch_size']
-            for i in range(0, len(ifttt_train.data['test']), batch_size):
-                batch = ifttt_train.data['test'][i:i + batch_size]
-
-                all_probs = ifttt_train.eval_batch(sess, m, batch, batch_size, get_probs=True)
-                assert len(all_probs) == 4
-
-                for row_index, row in enumerate(batch):
-                    for tag in row.get('tags', []):
-                        tagged_section = 'test-{}'.format(tag)
-                        for prob_matrix, container in zip(all_probs, probs_by_section[tagged_section]):
-                            container.append(prob_matrix[row_index])
-
-                        for label, container in zip(row['labels'], labels_by_section[tagged_section]):
-                            container.append(label)
-                sys.stdout.write(".")
-                sys.stdout.flush()
-            print(" ")
-
-        with open(os.path.join(args.logdir, 'probs-{}.pkl'.format(name)), 'wb') as fw:
-            data_dict = {'probs': dict(probs_by_section),
-                         'labels': dict(labels_by_section)}
-            pickle.dump(data_dict, fw, pickle.HIGHEST_PROTOCOL)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', required=True)
-    parser.add_argument('--load-model')
-    parser.add_argument('--bipartite-graph-file', default='./dataset/IFTTT/services-bipartite.txt')
-    parser.add_argument('--services-file', default='./dataset/IFTTT/serv_name.txt')
-    parser.add_argument('--functions-file', default='./dataset/IFTTT/functions.txt')
     parser.add_argument('--mode', default='train')
+    parser.add_argument('--width', default='0')
     parser.add_argument('--config', required=True)
-    parser.add_argument('--number-logdir', action='store_true')
-    parser.add_argument('--test-logdir', action='store_true')
-    parser.add_argument('--logdir')
-    parser.add_argument('--clear', action='store_true')
+    parser.add_argument('--load-model')
     parser.add_argument('--output', required=True)
     args = parser.parse_args()
     print("args", args)
     if args.mode == 'train':
         train(args)
-    else:
-        evaluate_test(args)

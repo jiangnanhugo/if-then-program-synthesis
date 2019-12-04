@@ -20,7 +20,7 @@
       "init_lr": 0.01,
       "staircase": true
    },
-   "max_grad_norm": 5,
+   "max_grad_norm": 1,
    "optimizer": "AdamOptimizer"
 }
 

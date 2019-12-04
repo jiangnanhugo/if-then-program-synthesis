@@ -1,8 +1,7 @@
-import collections
+
+import math
 from .utils import rnn
 import tensorflow as tf
-
-label_names = ['trigger_chans', 'trigger_funcs', 'action_chans', 'action_funcs']
 
 
 class IFTTTLModel(object):
@@ -14,82 +13,68 @@ class IFTTTLModel(object):
         self.ids = tf.placeholder(tf.int32, name='input', shape=[batch_size, memory_size])
         self.ids_lengths = tf.placeholder(tf.int32, name='input_lengths', shape=[batch_size])
         self.label = tf.placeholder(tf.int32, name='label', shape=[batch_size, 4])
-
+        self.batch_mask = []
         # batch size x seq length x label types
         ids = tf.minimum(vocab_size - 1, self.ids, name='make_unk')
 
         embed_x = tf.get_variable('embed_x', [vocab_size, embed_size])
         input_x = tf.nn.embedding_lookup(embed_x, ids)
-        rnn_outputs = []
-        for i in range(4):
-            with tf.variable_scope('lstm_for_'+str(i)):
+
+        with tf.variable_scope('RNN'):
+            if config['cell_type'] == 'lstm':
+                # outputs: RNN tensor list
+                rnn_output, _ = rnn(input_x, self.ids_lengths,
+                                    tf.nn.rnn_cell.GRUCell,
+                                    int(config['num_layers']),
+                                    int(config['num_units']),
+                                    config['keep_prob'],
+                                    is_train,
+                                    bid=config['bidirectional'])
+                rnn_outputs = rnn_output
+            elif config['name'] == 'Dict':
+                rnn_output = input_x
+                rnn_outputs = rnn_output
+
+        with tf.variable_scope('attention'):
+            if decoder_type == 'attention':
                 if config['cell_type'] == 'lstm':
-                    # outputs: RNN tensor list
-                    rnn_output, _ = rnn(input_x, self.ids_lengths,
-                                        tf.nn.rnn_cell.GRUCell,
-                                        int(config['num_layers']),
-                                        int(config['num_units']),
-                                        config['keep_prob'],
-                                        is_train,
-                                        bid=config['bidirectional'])
-                    rnn_outputs.append(rnn_output)
-                elif config['name'] == 'Dict':
-                    rnn_output = input_x
-                    rnn_outputs.append(rnn_output)
+                    vec_size = embed_size * 2
+                else:
+                    vec_size = embed_size
+                TA = tf.get_variable("BIAS_VECTOR", [memory_size, vec_size])
+                m = rnn_outputs + TA
+                PREP = tf.get_variable("PREP", [1, vec_size])
+                dotted_prep = tf.reduce_sum(m * PREP, 1)
+                probs_prep = tf.nn.softmax(dotted_prep)
+                probs_prep_temp = tf.transpose(tf.expand_dims(probs_prep, -1), [0, 2, 1])
+                dotted = tf.reduce_sum(m * probs_prep_temp, 2)
+                output_probs = tf.nn.softmax(dotted)
+                probs_temp = tf.expand_dims(output_probs, 1)
+
+                c_temp = tf.transpose(m, [0, 2, 1])
+                o_k = tf.reduce_sum(c_temp * probs_temp, 2)
 
         pred = []
         loss = 0
         for i in range(4):
-            with tf.variable_scope('attention' + str(i)):
-                if decoder_type == 'attention':
-                    if config['cell_type'] == 'lstm':
-                        vec_size = embed_size * 2
-                    else:
-                        vec_size = embed_size
-                    TA = tf.get_variable("BIAS_VECTOR", [memory_size, vec_size])
-                    m = rnn_outputs[i] + TA
-                    PREP = tf.get_variable("PREP", [1, vec_size])
-                    dotted_prep = tf.reduce_sum(m * PREP, 1)
-                    probs_prep = tf.nn.softmax(dotted_prep)
-                    probs_prep_temp = tf.transpose(tf.expand_dims(probs_prep, -1), [0, 2, 1])
-                    dotted = tf.reduce_sum(m * probs_prep_temp, 2)
-                    output_probs = tf.nn.softmax(dotted)
-                    probs_temp = tf.expand_dims(output_probs, 1)
-
-                    c_temp = tf.transpose(m, [0, 2, 1])
-                    o_k = tf.reduce_sum(c_temp * probs_temp, 2)
-                    softmax_w = tf.get_variable("softmax_w", [vec_size, label_size[i]], initializer=tf.contrib.layers.xavier_initializer())
-                    # print('o_k:',o_k)
-                    # print("softmax_w",softmax_w)
-                    logits = tf.matmul(o_k, softmax_w)
-
+            softmax_w = tf.get_variable("softmax_w_"+str(i), [vec_size, label_size[i]],
+                                        initializer=tf.contrib.layers.xavier_initializer())
             with tf.variable_scope('entropy' + str(i)):
-                log_probs = tf.nn.log_softmax(logits)
-                pred.append(tf.argmax(log_probs, axis=1))
-                loss += tf.reduce_sum(log_probs * tf.one_hot(self.label[:, i], depth=label_size[i]),
-                                      axis=1,
-                                      keep_dims=True)
+                mask = tf.placeholder(tf.float32, name='mask'+str(i), shape=[batch_size, label_size[i]])
+                logits = tf.matmul(o_k, softmax_w)
+                m_logits = mask_fill_inf(logits, mask)
+
+                log_probs = tf.nn.log_softmax(m_logits)
+                self.batch_mask.append(mask)
+                pred.append(tf.argmax(tf.nn.softmax(m_logits)*mask, axis=1))
+                label_log_p = log_probs * tf.one_hot(self.label[:, i], depth=label_size[i])
+                loss += tf.reduce_sum(tf.boolean_mask(label_log_p, mask))  # label_log_p*mask , axis=1, keep_dims=True
         self.xentropy = -loss
         self.pred = tf.transpose(tf.stack(pred))
 
         self.global_step = tf.Variable(0, trainable=False, name='global_step')
         if is_train:
             self.train_op = make_train_op(self.global_step, self.xentropy, config)
-
-
-class keydefaultdict(collections.defaultdict):
-    def __missing__(self, key):
-        if self.default_factory is None:
-            raise KeyError(key)
-        else:
-            ret = self[key] = self.default_factory(key)
-            return ret
-
-
-def without_name(d):
-    d = d.copy()
-    del d['name']
-    return d
 
 
 def make_train_op(global_step, loss, config):
@@ -111,3 +96,7 @@ def make_train_op(global_step, loss, config):
 
     return optimizer.apply_gradients(zip(grads, tvars), global_step=global_step)
 
+def mask_fill_inf(matrix, mask):
+    negmask = 1 - mask
+    num = 3.4 * math.pow(10, 38)
+    return (matrix * mask) + (-((negmask * num + num) - num))

@@ -5,14 +5,6 @@ import tensorflow as tf
 from tensorflow.contrib.layers import layer_norm
 
 
-def tf_print(tensor, message=None, summarize=None):
-    return tf.Print(tensor, [tensor], message=message, summarize=summarize)
-
-
-def tf_print_shape(tensor, message=None, summarize=None):
-    return tf.Print(tensor, [tf.shape(tensor)], message=message, summarize=summarize)
-
-
 def make_array(seqs, length=None, batch_size=None):
     '''Make a 2D NumPy array from a list of strings or a list of 1D arrays/lists.
     Shape of result is len(seqs) x length of longest sequence.'''
@@ -29,20 +21,6 @@ def make_array(seqs, length=None, batch_size=None):
         array[i, :len(item)] = item
 
     return array
-
-
-def filter_none_keys(d):
-    return {k: v for k, v in d.items() if k is not None}
-
-
-def mkdir_p(path):
-    try:
-        os.makedirs(path)
-    except OSError as exc:  # Python >2.5
-        if exc.errno == errno.EEXIST and os.path.isdir(path):
-            pass
-        else:
-            raise
 
 def create_buckets(sizes, min_bucket_size):
     '''Determine upper bounds for dividing |sizes| into buckets (contiguous
