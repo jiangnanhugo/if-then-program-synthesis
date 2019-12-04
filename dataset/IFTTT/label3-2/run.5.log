@@ -1,0 +1,25 @@
+Configure:
+  {'max_word_id': 4000, 'bid': True, 'cell_type': 'gru', 'use_layer_norm': True, 'decoder': 'attention', 'embedding_size': 150, 'keep_prob': 0.45, 'seq_len': 25, 'num_layers': 1, 'num_units': 150, 'use_embedding': True, 'epoches': 20, 'batch_size': 32, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 7000, 'init_lr': 0.002, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer', 'dict_file': {'zero_one_bipartite': 'dataset/IFTTT/zero_one_bipartite.txt', 'zero_two_bipartite': 'dataset/IFTTT/zero_two_bipartite.txt', 'zero_three_bipartite': 'dataset/IFTTT/zero_three_bipartite.txt', 'one_zero_bipartite': 'dataset/IFTTT/one_zero_bipartite.txt', 'one_two_bipartite': 'dataset/IFTTT/one_two_bipartite.txt', 'one_three_bipartite': 'dataset/IFTTT/one_three_bipartite.txt', 'two_zero_bipartite': 'dataset/IFTTT/two_zero_bipartite.txt', 'two_one_bipartite': 'dataset/IFTTT/two_one_bipartite.txt', 'two_three_bipartite': 'dataset/IFTTT/two_three_bipartite.txt', 'three_zero_bipartite': 'dataset/IFTTT/three_zero_bipartite.txt', 'three_one_bipartite': 'dataset/IFTTT/three_one_bipartite.txt', 'three_two_bipartite': 'dataset/IFTTT/three_two_bipartite.txt', 'ext_zero_one_bipartite': 'dataset/IFTTT/ext_zero_one_bipartite.txt', 'ext_two_three_bipartite': 'dataset/IFTTT/ext_two_three_bipartite.txt'}}
+The bucket size: [25]
+
+epoch: 1  tLoss: 0.7166  0.6992  0.4841  0.7220  0.6856  0.3053    lr: 0.001937  save acc: 0.3053 T: 2019-09-25T03:47  
+epoch: 2  tLoss: 0.5272  0.7390  0.5470  0.7322  0.7080  0.3591    lr: 0.001876  save acc: 0.3591 T: 2019-09-25T03:51  
+epoch: 3  tLoss: 0.4660  0.7758  0.5792  0.7295  0.7019  0.3852    lr: 0.001817  save acc: 0.3852 T: 2019-09-25T03:55  
+epoch: 4  tLoss: 0.4238  0.7705  0.6011  0.7277  0.6985  0.3973    lr: 0.001760  save acc: 0.3973 T: 2019-09-25T03:58  
+epoch: 5  tLoss: 0.3932  0.7735  0.6034  0.7174  0.6837  0.3898    lr: 0.001704  
+epoch: 6  tLoss: 0.3684  0.7754  0.6231  0.7159  0.6867  0.4064    lr: 0.001650  save acc: 0.4064 T: 2019-09-25T04:06  
+epoch: 7  tLoss: 0.3478  0.7833  0.6201  0.7091  0.6777  0.4068    lr: 0.001598  save acc: 0.4068 T: 2019-09-25T04:09  
+epoch: 8  tLoss: 0.3313  0.7761  0.6223  0.7140  0.6837  0.4087    lr: 0.001548  save acc: 0.4087 T: 2019-09-25T04:13  
+epoch: 9  tLoss: 0.3163  0.7773  0.6223  0.7186  0.6860  0.4095    lr: 0.001499  save acc: 0.4095 T: 2019-09-25T04:17  
+epoch: 10  tLoss: 0.3037  0.7739  0.6201  0.7038  0.6735  0.3989    lr: 0.001452  
+epoch: 11  tLoss: 0.2923  0.7697  0.6163  0.7068  0.6701  0.3977    lr: 0.001406  
+epoch: 12  tLoss: 0.2818  0.7727  0.6167  0.7121  0.6814  0.4057    lr: 0.001362  
+epoch: 13  tLoss: 0.2735  0.7644  0.6163  0.7064  0.6693  0.3909    lr: 0.001319  
+epoch: 14  tLoss: 0.2656  0.7750  0.6197  0.7011  0.6614  0.3913    lr: 0.001278  
+epoch: 15  tLoss: 0.2579  0.7640  0.6080  0.6989  0.6572  0.3822    lr: 0.001237  
+epoch: 16  tLoss: 0.2516  0.7765  0.6242  0.6958  0.6591  0.3985    lr: 0.001198  
+epoch: 17  tLoss: 0.2460  0.7587  0.6178  0.7038  0.6682  0.4000    lr: 0.001161  
+epoch: 18  tLoss: 0.2402  0.7625  0.6152  0.6936  0.6587  0.3924    lr: 0.001124  
+epoch: 19  tLoss: 0.2363  0.7640  0.6140  0.6951  0.6576  0.3909    lr: 0.001089  
+epoch: 20  tLoss: 0.2311  0.7598  0.6136  0.6947  0.6655  0.3883    lr: 0.001054  
+epoch: 21  tLoss: 0.2274  0.7674  0.6125  0.6966  0.6557  0.3883    lr: 0.001021  
