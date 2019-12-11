@@ -65,13 +65,13 @@ def build_nodes_arcs(label_names):
     for layer in range(4):
         temp_list = []
         for i in range(len(label_names)):
-                uid += 1
-                if layer == 3:
+            uid += 1
+            if layer == 3:
                     new_node = Node(layer + 1, "u_" + str(uid), label_names[i][layer], "t")
-                else:
-                    new_node = Node(layer + 1, "u_" + str(uid), label_names[i][layer], label_names[i][layer + 1])
-                # print(new_node)
-                temp_list.append(new_node)
+            else:
+                new_node = Node(layer + 1, "u_" + str(uid), label_names[i][layer], label_names[i][layer + 1])
+            # print(new_node)
+            temp_list.append(new_node)
         node_list.append(temp_list)
         # print(len(node_list[layer]))
 
@@ -181,7 +181,7 @@ def get_vps(label_names, maxwidth=0, out_dir="./model/", huristic_func=None):
         with open(filename, 'wb')as fw:
             pickle.dump(mymdd, fw, pickle.HIGHEST_PROTOCOL)
         print("dump to the pickle")
-        with open(filename,'rb')as fr:
+        with open(filename, 'rb')as fr:
             mymdd = pickle.load(fr)
 
     return mymdd
