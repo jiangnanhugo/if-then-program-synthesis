@@ -42,12 +42,9 @@ def create_buckets(sizes, min_bucket_size):
     return buckets
 
 
-def rnn(inputs, input_lengths, cell_type, num_layers, num_units, keep_prob, is_training,
+def rnn(inputs, input_lengths, cell_type, num_units, keep_prob, is_training,
         bid=False, residual=False, regular_output=False, use_norm=False):
     # inputs: batch x time x depth
-
-    assert num_layers >= 1
-
     need_tuple_state = cell_type in (tf.nn.rnn_cell.BasicLSTMCell, tf.nn.rnn_cell.LSTMCell)
 
     if need_tuple_state:
@@ -63,21 +60,20 @@ def rnn(inputs, input_lengths, cell_type, num_layers, num_units, keep_prob, is_t
         input_lengths_64 = tf.cast(input_lengths, tf.int64)
         prev_layer_fwd = inputs
         prev_layer_rev = tf.reverse_sequence(inputs, input_lengths_64, 1)
-        for i in range(num_layers):
-            with tf.variable_scope("Layer%d" % i):
-                with tf.variable_scope("Fwd"):
-                    outputs_fwd, final_state_fwd = tf.nn.dynamic_rnn(cell, prev_layer_fwd, input_lengths, dtype=tf.float32)
-                    if use_norm:
-                        outputs_fwd = layer_norm(outputs_fwd, scope="layer_norm")
-                with tf.variable_scope("Rev"):
-                    outputs_rev, final_state_rev = tf.nn.dynamic_rnn(cell, prev_layer_rev, input_lengths, dtype=tf.float32)
-                    if use_norm:
-                        outputs_rev = layer_norm(outputs_rev, scope="layer_norm")
 
-                outputs_rev = tf.reverse_sequence(outputs_rev, input_lengths_64, 1)
-                # print("{} {}".format(outputs_rev, outputs_fwd))
-                prev_layer_fwd = tf.concat([outputs_fwd, outputs_rev], axis=2)
-                prev_layer_rev = tf.reverse_sequence(prev_layer_fwd, input_lengths_64, 1)
+        with tf.variable_scope("Fwd"):
+            outputs_fwd, final_state_fwd = tf.nn.dynamic_rnn(cell, prev_layer_fwd, input_lengths, dtype=tf.float32)
+            if use_norm:
+                outputs_fwd = layer_norm(outputs_fwd, scope="layer_norm")
+        with tf.variable_scope("Rev"):
+            outputs_rev, final_state_rev = tf.nn.dynamic_rnn(cell, prev_layer_rev, input_lengths, dtype=tf.float32)
+            if use_norm:
+                outputs_rev = layer_norm(outputs_rev, scope="layer_norm")
+
+        outputs_rev = tf.reverse_sequence(outputs_rev, input_lengths_64, 1)
+        # print("{} {}".format(outputs_rev, outputs_fwd))
+        prev_layer_fwd = tf.concat([outputs_fwd, outputs_rev], axis=2)
+        prev_layer_rev = tf.reverse_sequence(prev_layer_fwd, input_lengths_64, 1)
 
         if regular_output:
             return prev_layer_fwd, final_state_fwd + final_state_rev
@@ -95,11 +91,9 @@ def rnn(inputs, input_lengths, cell_type, num_layers, num_units, keep_prob, is_t
         return prev_layer_fwd, final_output
 
     # Not bidirectional
-    for i in range(num_layers):
-        prev_layer = inputs
-        with tf.variable_scope("Layer%d" % i):
-            outputs, final_state = tf.nn.dynamic_rnn(cell, prev_layer, input_lengths, dtype=tf.float32)
-            prev_layer = outputs
+    with tf.variable_scope("Layer"):
+        outputs, final_state = tf.nn.dynamic_rnn(cell, inputs, input_lengths, dtype=tf.float32)
+        prev_layer = outputs
 
     if regular_output:
         return outputs, final_state

@@ -1,4 +1,4 @@
-from tf_utils.pymdd.mdd import *
+from tf_utils.mdd.mdd import *
 import random
 import pickle
 import json
@@ -64,39 +64,45 @@ def build_nodes_arcs(label_names):
     # middle layer
     for layer in range(4):
         temp_list = []
-        for i in range(len(label_names)):
-            uid += 1
-            if layer == 3:
-                    new_node = Node(layer + 1, "u_" + str(uid), label_names[i][layer], "t")
-            else:
+        if layer % 2 == 0:
+            for i in range(len(label_names)):
+                uid += 1
                 new_node = Node(layer + 1, "u_" + str(uid), label_names[i][layer], label_names[i][layer + 1])
-            # print(new_node)
+                temp_list.append(new_node)
+        else:
+            uid += 1
+            new_node = Node(layer + 1, "u_" + str(uid), "any", "any")
             temp_list.append(new_node)
         node_list.append(temp_list)
         # print(len(node_list[layer]))
 
-    node_list.append([sink, ])
+    node_list.append([sink])
 
     # build arc
     arc_list = []
     temp_list = []
     source = node_list[0][0]
+    # source -> s1
     for i in range(len(label_names)):
         dest = node_list[1][i]
         new_arc = Arc(dest.id, source.id, dest.in_come)
         temp_list.append(new_arc)
     arc_list.append(temp_list)
 
-    for layer in range(1, 4):
-        temp_list = []
-        for i in range(len(label_names)):
-            source = node_list[layer][i]
-            dest = node_list[layer + 1][i]
-            if source.out_go != dest.in_come:
-                raise MemoryError("the edge does not match")
-            new_arc = Arc(dest.id, source.id, source.out_go)
-            temp_list.append(new_arc)
-        arc_list.append(temp_list)
+    # s1->f1
+    for i in range(len(label_names)):
+        source=node_list[1][i]
+        out_go=set()
+        for x in label_names:
+            if x[1]==source.in_come:
+                out_go.add(x[2])
+        for dest in node_list[2]:
+            if dest.in_come in out_go:
+                new_arc = Arc(dest.id, source.id, dest.in_come)
+                temp_list.append(new_arc)
+    arc_list.append(temp_list)
+
+
 
     temp_list = []
     dest = node_list[5][0]
@@ -163,9 +169,11 @@ def build_path(label_names):
     return json_content
 
 
-def get_vps(label_names, maxwidth=0, out_dir="./model/", huristic_func=None):
+def get_vps(label_names, maxwidth=0, out_dir="./model/",data_source="IFTTT", huristic_func=None,):
     mymdd = MDD()
-    filename = out_dir+"IFTTT-w-"+str(maxwidth)+'.pkl'
+    filename = out_dir+data_source+"-w-"+maxwidth+'.pkl'
+    if maxwidth != "opt":
+        maxwidth=int(maxwidth)
     print(filename)
     if os.path.isfile(filename):
         print("load_from_json content")

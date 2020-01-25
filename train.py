@@ -5,17 +5,20 @@ from collections import defaultdict
 import json
 import random
 import os
-import shutil
 import datetime
 from tqdm import tqdm
 import tensorflow as tf
+import timeit
 import tf_utils
-from tf_utils import IFTTTLModel, get_vps
+from tf_utils import Model, get_vps
 import numpy as np
 np.set_printoptions(precision=4)
 np.set_printoptions(linewidth=np.inf)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+tf.set_random_seed(10086)
+np.random.seed(10010)
+random.seed(47906)
 
 
 class MainLoop(object):
@@ -26,8 +29,12 @@ class MainLoop(object):
         self.max_desc_length = 0
 
         all_labels = self.get_label_instance(self.data)
+        self.label_set=[defaultdict(set),defaultdict(set)]
+        for i in range(len(all_labels)):
+            self.label_set[0][all_labels[i][0]].add(all_labels[i][1])
+            self.label_set[1][all_labels[i][2]].add(all_labels[i][3])
 
-        self.vps = get_vps(all_labels, vps_max_width, self.output_dir, self.data['category'])
+        self.vps = get_vps(all_labels, vps_max_width, self.output_dir, "dataset", self.data['category'])
 
         self.label2index = self.data['label2index']
         self.index2label = self.data['index2label']
@@ -47,7 +54,6 @@ class MainLoop(object):
 
         buckets = tf_utils.create_buckets([len(item['ids']) for item in self.data['train']],
                                           self.config['batch_size'] * 5000)
-        print('The bucket size:', buckets)
 
         self.bucketed_train = [[]] * len(buckets)
         for item in self.data['train']:
@@ -66,7 +72,6 @@ class MainLoop(object):
         else:
             self.vocab_size = len(self.data['word_ids'])
 
-
     @staticmethod
     def get_label_instance(datadict):
         names = [it['label_names'] for it in datadict['train']]
@@ -77,7 +82,6 @@ class MainLoop(object):
             if na not in label_names:
                 label_names.append(na)
         print("# path", len(label_names))
-        # label_names=label_names[:10]
         return label_names
 
     def get_mask(self, label_names):
@@ -118,7 +122,7 @@ class MainLoop(object):
         return self.get_batch(batch)
 
     def get_batch(self, batch):
-        ids = tf_utils.make_array([item['ids'] for item in batch], length=self.memory_size)  # [batch_size(32), max_seq_len(25)]
+        ids = tf_utils.make_array([item['ids'] for item in batch], length=self.memory_size)
         ids_lengths = np.array([len(item['ids']) for item in batch])                         # [batch_size(32)]
         labels = np.zeros((self.config['batch_size'], 4), dtype=np.int32)
         batch_mask = [np.zeros((self.config['batch_size'], self.label_size[i]), dtype=np.int32) for i in range(4)]
@@ -137,16 +141,15 @@ class MainLoop(object):
         ids_lengths = np.zeros(batch_size)
         for i, item in enumerate(batch):
             ids_lengths[i] = len(item['ids'])
-        labels = np.zeros((batch_size, 4))
+        labels = []
         for i, item in enumerate(batch):
             lab = [x.lower() for x in item['label_names']]
-            lab = [self.label2index[j][lab[j]] for j in range(4)]
-            labels[i, :] = lab
+            labels.append(lab)
 
         return ids, ids_lengths, labels
 
     def create_model(self, is_train):
-        return IFTTTLModel(self.config, self.vocab_size, self.memory_size, self.label_size, is_train)
+        return Model(self.config, self.vocab_size, self.memory_size, self.label_size, is_train)
 
     def run(self, initializer, load_model=None):
         epoches = self.config['epoches']
@@ -165,20 +168,17 @@ class MainLoop(object):
         else:
             session.run(tf.global_variables_initializer())
 
-        epoch = 0
-        cur_point = 0
-        best_acc = 0.
+        epoch, cur_point, best_acc = 0, 0, 0
         print("the graph width list : {}".format(self.vps.widthList))
         while epoch <= epoches:
             epoch += 1
             iterations = int(len(self.bucketed_train[0]) / batch_size)
-            c1 = 0
-            loss = 0.
-            # for _ in tqdm(range(iterations), leave=False):
+            # timed=0
+            #for _ in tqdm(range(iterations), leave=False):
             for _ in range(iterations):
                 batch = self.read(cur_point)
                 cur_point += len(batch[0])
-                input_list = [model.xentropy, model.pred, model.train_op, model.global_step]
+                input_list = [model.train_op, model.global_step]
                 ids, ids_lengths, label, batch_mask = batch
                 # for i in range(32):
                 #     for j in range(4):
@@ -191,34 +191,39 @@ class MainLoop(object):
                                   model.batch_mask[1]: batch_mask[1],
                                   model.batch_mask[2]: batch_mask[2],
                                   model.batch_mask[3]: batch_mask[3]})
-
-                cost, pred, _, global_step = session.run(input_list, feed_dict)
-                # self.generate_test_summaries(session, model_valid)
-                loss += np.sum(cost)
-                correct = (pred[:batch_size] == label[:batch_size])
-                c1 += np.sum(correct)
-                # break
+                # start = timeit.default_timer()
+                train_op, global_step = session.run(input_list, feed_dict)
+                # timed+=end-start
+            # print("timed {}",timed)
             # reset data pointer
             cur_point = 0
-            print("iter=", epoch, end=" ")
-            cur_acc, int_acc = self.generate_test_summaries(session, model_valid)
+            print("it", epoch, end=" ")
+
+            cur_acc, int_acc, tp_instance = self.generate_test_summaries(session, model_valid)
             if cur_acc > best_acc:
                 best_acc = cur_acc
-                print("save acc:", format(int_acc, '.4f'),
-                      'time:', datetime.datetime.now().isoformat(timespec='minutes'), end=' ')
+                print("save:", format(int_acc, '.2f'),
+                      'T:', datetime.datetime.now().isoformat(timespec='minutes'), end=' ')
             print()
 
     def generate_test_summaries(self, session, model):
         batch_size = self.config['batch_size']
         num_correct = defaultdict(int)
         total = defaultdict(int)
-        for section in ('train', 'dev', 'test'):
+        tp_intance=defaultdict(list)
+        if 'new_test' in self.data:
+            candidate=('dev', 'new_test')
+        else:
+            candidate=('dev', 'test')
+
+        for section in candidate:
+            tp_intance[section] = []
             length = len(self.data[section])
             for i in range(0, length, batch_size):
                 batch = self.data[section][i:i + batch_size]
                 ids, ids_lengths, labels = self.get_batch_full(batch, batch_size)
-                batch_mask = [np.ones((self.config['batch_size'], self.label_size[ii]), dtype=np.int32) for ii in range(4)]
-                for iter in range(1, 4):
+                batch_mask = [np.ones((batch_size, self.label_size[k]), dtype=np.int32) for k in range(4)]
+                for iter in range(1, 5):
                     feed_dict = dict({model.ids: ids,
                                       model.ids_lengths: ids_lengths,
                                       model.batch_mask[0]: batch_mask[0],
@@ -228,39 +233,43 @@ class MainLoop(object):
 
                     pred = session.run(model.pred, feed_dict)
                     predict_names = []
-                    for i in range(len(pred)):
-                       predict = []
-                       for j in range(4):
-                           lab_name = self.index2label[j][pred[i][j]]
-                           predict.append(lab_name)
-                       predict_names.append(predict)
-                    new_mask = self.update_mask_with_depth(predict_names, iter)
-                    # for p in range(32):
-                    #     for q in range(4):
-                    #         print("batch={}, layer={}, old_mask:{} new_mask:{} equal:{}".format(p,q,
-                    #                                                         np.sum(batch_mask[q][p]),
-                    #                                                         np.sum(new_mask[q][p]),
-                    #                                                         np.sum(batch_mask[q][p] == new_mask[q][p])))
-                    batch_mask=new_mask
+                    for t in range(len(pred)):
+                        predict = []
+                        for j in range(iter):
+                            lab_name = self.index2label[j][pred[t][j]]
+                            predict.append(lab_name)
+                        predict_names.append(predict)
+                    # print(predict_names)
+                    batch_mask = self.update_mask_with_depth(predict_names, iter)
 
-                for i, (pd, gd) in enumerate(zip(pred, labels)):
-                    if len(batch) <= i:
+                for j, (pd, gd) in enumerate(zip(predict_names, labels)):
+                    if len(batch) <= j:
                         break
-                    if pd[0]==gd[0] and  pd[1]==gd[1] and  pd[2]==gd[2] and  pd[3]==gd[3]:
-                        c1=1
+                    if pd[0] == gd[0] and pd[1] == gd[1] and pd[2] == gd[2] and pd[3] == gd[3]:
+                        c1 = 1
                     else:
-                        c1=0
+                        c1 = 0
+
+                    if pd[3] in self.label_set[1][pd[2]] and pd[1] in self.label_set[0][pd[0]]:
+                        c3=1
+                    else:
+                        c3=0
+                        # print(pd_name[2], pd_name[3], self.label_set[pd_name[2]])
+                    tp_intance[section].append((batch[j], predict_names[j]))
+                    c2 = ((pd[0] != gd[0]) + (pd[1] != gd[1]) + (pd[2] != gd[2]) + (pd[3] != gd[3]))*0.25
                     total[section] += 1
-                    num_correct[section] +=  c1
-                    batchi = batch[i]
-                    rows = batchi.get("tags", [])
-                    for tag in rows:
-                        total[tag] += 1
-                        num_correct[tag] += c1
+                    total[section+"_h"] += 1
+                    total[section + "_v"] += 1
+                    num_correct[section] += c1
+                    num_correct[section+"_h"] += c2
+                    num_correct[section + "_v"] += c3
 
         for section, correct in num_correct.items():
-            print(section, format(correct / total[section], '.4f'), end='   ')  #
-        return num_correct['dev'] / total['dev'], num_correct['intelligible'] / total['intelligible']
+            print(section, format(correct*100 / total[section], '.2f'), end='   ')
+
+        return num_correct['dev'] / total['dev'], num_correct[candidate[-1]]*100 / total[candidate[-1]], tp_intance[candidate[-1]]
+
+
 
 
 def train(args):
@@ -271,7 +280,7 @@ def train(args):
 
 
     try:
-        mainloop = MainLoop(args, config, int(args.width))
+        mainloop = MainLoop(args, config, args.width)
         mainloop.run(mainloop.initializer, args.load_model)
     except KeyboardInterrupt:
         print("keyboard exception, training terminated!")

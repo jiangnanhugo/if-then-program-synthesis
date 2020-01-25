@@ -4,7 +4,7 @@ from .utils import rnn
 import tensorflow as tf
 
 
-class IFTTTLModel(object):
+class Model(object):
     def __init__(self, config, vocab_size, memory_size, label_size, is_train):
         batch_size = config['batch_size']
         embed_size = config['embedding_size']
@@ -21,15 +21,25 @@ class IFTTTLModel(object):
         input_x = tf.nn.embedding_lookup(embed_x, ids)
 
         with tf.variable_scope('RNN'):
-            if config['cell_type'] == 'lstm':
+            if config['cell_type'] == 'gru':
                 # outputs: RNN tensor list
                 rnn_output, _ = rnn(input_x, self.ids_lengths,
                                     tf.nn.rnn_cell.GRUCell,
-                                    int(config['num_layers']),
                                     int(config['num_units']),
                                     config['keep_prob'],
                                     is_train,
-                                    bid=config['bidirectional'])
+                                    bid=config['bidirectional'],
+                                    residual=True)
+                rnn_outputs = rnn_output
+            elif config['cell_type'] == 'lstm':
+                # outputs: RNN tensor list
+                rnn_output, _ = rnn(input_x, self.ids_lengths,
+                                    tf.nn.rnn_cell.LSTMCell,
+                                    int(config['num_units']),
+                                    config['keep_prob'],
+                                    is_train,
+                                    bid=config['bidirectional'],
+                                    residual=True)
                 rnn_outputs = rnn_output
             elif config['name'] == 'Dict':
                 rnn_output = input_x
@@ -39,6 +49,8 @@ class IFTTTLModel(object):
             if decoder_type == 'attention':
                 if config['cell_type'] == 'lstm':
                     vec_size = embed_size * 2
+                elif config['cell_type'] == 'gru':
+                    vec_size = embed_size *2
                 else:
                     vec_size = embed_size
                 TA = tf.get_variable("BIAS_VECTOR", [memory_size, vec_size])
@@ -55,7 +67,9 @@ class IFTTTLModel(object):
                 o_k = tf.reduce_sum(c_temp * probs_temp, 2)
 
         pred = []
+        self.probability=[]
         loss = 0
+        self.boolean_loss=[]
         for i in range(4):
             softmax_w = tf.get_variable("softmax_w_"+str(i), [vec_size, label_size[i]],
                                         initializer=tf.contrib.layers.xavier_initializer())
@@ -66,9 +80,13 @@ class IFTTTLModel(object):
 
                 log_probs = tf.nn.log_softmax(m_logits)
                 self.batch_mask.append(mask)
-                pred.append(tf.argmax(tf.nn.softmax(m_logits)*mask, axis=1))
+                masked_probility=tf.nn.softmax(m_logits)*mask
+                self.probability.append(masked_probility)
+                pred.append(tf.argmax(masked_probility, axis=1))
                 label_log_p = log_probs * tf.one_hot(self.label[:, i], depth=label_size[i])
-                loss += tf.reduce_sum(tf.boolean_mask(label_log_p, mask))  # label_log_p*mask , axis=1, keep_dims=True
+                boolean_loss=tf.boolean_mask(label_log_p, mask)
+                self.boolean_loss.append(boolean_loss)
+                loss += tf.reduce_sum(boolean_loss)/(batch_size)  # label_log_p*mask , axis=1, keep_dims=True
         self.xentropy = -loss
         self.pred = tf.transpose(tf.stack(pred))
 
