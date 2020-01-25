@@ -1,0 +1,22 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-45/', width='45')
+configure: {'max_word_id': 4000, 'bidirectional': True, 'cell_type': 'gru', 'decoder': 'attention', 'embedding_size': 160, 'keep_prob': 0.45, 'memory_size': 25, 'num_units': 160, 'use_embedding': True, 'epoches': 15, 'batch_size': 32, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.002, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8549
+model/ifttt/width-45/dataset-w-45.pkl
+load_from_json content
+the graph width list : [1, 45, 1, 1, 1, 1]
+it 1 train 0.3412   train_h 0.1647   train_v 0.9312   dev 0.2900   dev_h 0.1775   dev_v 0.9311   new_test 0.3623   new_test_h 0.1594   new_test_v 0.9389   save acc: 0.3623 T: 2020-01-10T11:51 
+it 2 train 0.4293   train_h 0.1427   train_v 0.9406   dev 0.3349   dev_h 0.1663   dev_v 0.9337   new_test 0.4375   new_test_h 0.1406   new_test_v 0.9539   save acc: 0.4375 T: 2020-01-10T11:54 
+it 3 train 0.4805   train_h 0.1299   train_v 0.9419   dev 0.3455   dev_h 0.1636   dev_v 0.9306   new_test 0.4581   new_test_h 0.1355   new_test_v 0.9507   save acc: 0.4581 T: 2020-01-10T11:57 
+it 4 train 0.5217   train_h 0.1196   train_v 0.9479   dev 0.3479   dev_h 0.1630   dev_v 0.9303   new_test 0.4654   new_test_h 0.1336   new_test_v 0.9555   save acc: 0.4654 T: 2020-01-10T12:00 
+it 5 train 0.5516   train_h 0.1121   train_v 0.9512   dev 0.3527   dev_h 0.1618   dev_v 0.9344   new_test 0.4581   new_test_h 0.1355   new_test_v 0.9490   save acc: 0.4581 T: 2020-01-10T12:03 
+it 6 train 0.5734   train_h 0.1067   train_v 0.9517   dev 0.3498   dev_h 0.1625   dev_v 0.9279   new_test 0.4626   new_test_h 0.1344   new_test_v 0.9515   
+it 7 train 0.5935   train_h 0.1016   train_v 0.9549   dev 0.3505   dev_h 0.1624   dev_v 0.9233   new_test 0.4715   new_test_h 0.1321   new_test_v 0.9515   
+it 8 train 0.6075   train_h 0.0981   train_v 0.9545   dev 0.3469   dev_h 0.1633   dev_v 0.9270   new_test 0.4650   new_test_h 0.1337   new_test_v 0.9527   
+it 9 train 0.6211   train_h 0.0947   train_v 0.9579   dev 0.3474   dev_h 0.1632   dev_v 0.9253   new_test 0.4650   new_test_h 0.1337   new_test_v 0.9495   
+it 10 train 0.6305   train_h 0.0924   train_v 0.9589   dev 0.3493   dev_h 0.1627   dev_v 0.9248   new_test 0.4687   new_test_h 0.1328   new_test_v 0.9523   
+it 11 train 0.6385   train_h 0.0904   train_v 0.9594   dev 0.3435   dev_h 0.1641   dev_v 0.9243   new_test 0.4646   new_test_h 0.1338   new_test_v 0.9575   
+it 12 train 0.6432   train_h 0.0892   train_v 0.9598   dev 0.3402   dev_h 0.1650   dev_v 0.9224   new_test 0.4650   new_test_h 0.1337   new_test_v 0.9543   
+it 13 train 0.6489   train_h 0.0878   train_v 0.9615   dev 0.3445   dev_h 0.1639   dev_v 0.9245   new_test 0.4634   new_test_h 0.1341   new_test_v 0.9543   
+it 14 train 0.6521   train_h 0.0870   train_v 0.9616   dev 0.3428   dev_h 0.1643   dev_v 0.9243   new_test 0.4654   new_test_h 0.1336   new_test_v 0.9527   
+it 15 train 0.6547   train_h 0.0863   train_v 0.9609   dev 0.3411   dev_h 0.1647   dev_v 0.9253   new_test 0.4610   new_test_h 0.1348   new_test_v 0.9535   
+it 16 train 0.6572   train_h 0.0857   train_v 0.9618   dev 0.3428   dev_h 0.1643   dev_v 0.9241   new_test 0.4606   new_test_h 0.1349   new_test_v 0.9503   

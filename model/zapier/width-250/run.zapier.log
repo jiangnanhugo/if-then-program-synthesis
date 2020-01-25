@@ -1,0 +1,19 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/zapier/zapier_data.pkl', load_model=None, mode='train', output='model/zapier/width-250/', width='250')
+configure: {'max_word_id': 3782, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 100, 'keep_prob': 0.75, 'memory_size': 100, 'num_units': 100, 'use_embedding': True, 'epoches': 12, 'batch_size': 20, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.02, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 25149
+model/zapier/width-250/dataset-w-250.pkl
+load_from_json content
+the graph width list : [1, 250, 1, 250, 1, 1]
+it 1 dev 18.09   dev_h 36.93   dev_v 87.21   test 19.39   test_h 36.17   test_v 88.07   save: 19.39 T: 2020-01-13T18:16 
+it 2 dev 25.07   dev_h 30.93   dev_v 87.25   test 25.21   test_h 30.62   test_v 87.49   save: 25.21 T: 2020-01-13T18:17 
+it 3 dev 27.21   dev_h 29.03   dev_v 88.41   test 28.67   test_h 28.29   test_v 90.02   save: 28.67 T: 2020-01-13T18:19 
+it 4 dev 29.07   dev_h 28.33   dev_v 89.54   test 30.61   test_h 27.49   test_v 90.79   save: 30.61 T: 2020-01-13T18:20 
+it 5 dev 28.63   dev_h 28.24   dev_v 90.04   test 29.64   test_h 27.56   test_v 91.41   
+it 6 dev 29.67   dev_h 27.68   dev_v 91.02   test 30.96   test_h 27.20   test_v 92.19   save: 30.96 T: 2020-01-13T18:23 
+it 7 dev 30.28   dev_h 27.18   dev_v 91.12   test 30.81   test_h 26.71   test_v 92.23   save: 30.81 T: 2020-01-13T18:24 
+it 8 dev 30.26   dev_h 27.25   dev_v 90.66   test 30.34   test_h 26.95   test_v 91.69   
+it 9 dev 31.17   dev_h 26.87   dev_v 91.50   test 31.86   test_h 26.42   test_v 92.31   save: 31.86 T: 2020-01-13T18:26 
+it 10 dev 29.99   dev_h 27.78   dev_v 90.35   test 31.27   test_h 27.06   test_v 91.45   
+it 11 dev 29.99   dev_h 27.59   dev_v 90.52   test 31.24   test_h 26.81   test_v 91.45   
+it 12 dev 29.92   dev_h 27.73   dev_v 90.31   test 30.92   test_h 27.12   test_v 91.88   
+it 13 dev 30.01   dev_h 27.75   dev_v 91.23   test 31.39   test_h 26.98   test_v 92.89   

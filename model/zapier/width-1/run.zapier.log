@@ -1,0 +1,13 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/zapier/zapier_data.pkl', load_model=None, mode='train', output='model/zapie-2/width-1/', width='1')
+configure: {'max_word_id': 3782, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 100, 'keep_prob': 0.75, 'memory_size': 100, 'num_units': 100, 'use_embedding': True, 'epoches': 12, 'batch_size': 20, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.02, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 25149
+model/zapie-2/width-1/dataset-w-1.pkl
+load raw and dump to file
+numArcLayers: 5
+=profile=
+(0, 1353) 
+(1353, 1755) 
+(1755, 1333) 
+(1333, 1466) 
+(1466, 1) 
+(1, 0) 

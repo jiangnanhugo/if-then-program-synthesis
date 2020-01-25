@@ -1,0 +1,345 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-16/pid-4-', width='16')
+configure: {'max_word_id': 4000, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 50, 'keep_prob': 0.5, 'memory_size': 25, 'num_layers': 1, 'num_units': 50, 'use_embedding': True, 'epoches': 20, 'batch_size': 32, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.01, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8580
+save to model/ifttt/width-16/pid-4-IFTTT-w-16.json
+load json
+numArcLayers: 5
+1 1 16
+layer 1 incoming edges: 111
+split the incoming edges: 111 51 60
+the value pair of raw_data is: 492
+split the outgoings edges: 443 188 275 463
+add node: MDDNode(1,u_6) MDDNode(1,u_7), remove node: MDDNode(1,u_1)
+2 1 16
+layer 2 incoming edges: 463
+split the incoming edges: 463 229 234
+the value pair of raw_data is: 6265
+split the outgoings edges: 88 88 87 175
+add node: MDDNode(2,u_8) MDDNode(2,u_9), remove node: MDDNode(2,u_2)
+3 1 16
+layer 3 incoming edges: 175
+split the incoming edges: 175 82 93
+the value pair of raw_data is: 202
+split the outgoings edges: 161 115 126 241
+add node: MDDNode(3,u_10) MDDNode(3,u_11), remove node: MDDNode(3,u_3)
+4 1 16
+layer 4 incoming edges: 241
+split the incoming edges: 241 106 135
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_12) MDDNode(4,u_13), remove node: MDDNode(4,u_4)
+1 2 16
+layer 1 incoming edges: 51
+split the incoming edges: 51 27 24
+the value pair of raw_data is: 492
+split the outgoings edges: 188 104 87 191
+add node: MDDNode(1,u_14) MDDNode(1,u_15), remove node: MDDNode(1,u_6)
+layer 1 incoming edges: 60
+split the incoming edges: 60 22 38
+the value pair of raw_data is: 492
+split the outgoings edges: 275 84 193 277
+add node: MDDNode(1,u_16) MDDNode(1,u_17), remove node: MDDNode(1,u_7)
+2 2 16
+layer 2 incoming edges: 233
+split the incoming edges: 233 113 120
+the value pair of raw_data is: 6265
+split the outgoings edges: 88 86 88 174
+add node: MDDNode(2,u_18) MDDNode(2,u_19), remove node: MDDNode(2,u_8)
+layer 2 incoming edges: 235
+split the incoming edges: 235 114 121
+the value pair of raw_data is: 6265
+split the outgoings edges: 87 86 84 170
+add node: MDDNode(2,u_20) MDDNode(2,u_21), remove node: MDDNode(2,u_9)
+3 2 16
+layer 3 incoming edges: 159
+split the incoming edges: 159 76 83
+the value pair of raw_data is: 202
+split the outgoings edges: 115 92 102 194
+add node: MDDNode(3,u_22) MDDNode(3,u_23), remove node: MDDNode(3,u_10)
+layer 3 incoming edges: 185
+split the incoming edges: 185 96 89
+the value pair of raw_data is: 202
+split the outgoings edges: 126 107 107 214
+add node: MDDNode(3,u_24) MDDNode(3,u_25), remove node: MDDNode(3,u_11)
+4 2 16
+layer 4 incoming edges: 182
+split the incoming edges: 182 90 92
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_26) MDDNode(4,u_27), remove node: MDDNode(4,u_12)
+layer 4 incoming edges: 226
+split the incoming edges: 226 110 116
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_28) MDDNode(4,u_29), remove node: MDDNode(4,u_13)
+1 4 16
+layer 1 incoming edges: 27
+split the incoming edges: 27 15 12
+the value pair of raw_data is: 492
+split the outgoings edges: 104 53 53 106
+add node: MDDNode(1,u_30) MDDNode(1,u_31), remove node: MDDNode(1,u_14)
+layer 1 incoming edges: 24
+split the incoming edges: 24 16 8
+the value pair of raw_data is: 492
+split the outgoings edges: 87 56 31 87
+add node: MDDNode(1,u_32) MDDNode(1,u_33), remove node: MDDNode(1,u_15)
+layer 1 incoming edges: 22
+split the incoming edges: 22 8 14
+the value pair of raw_data is: 492
+split the outgoings edges: 84 19 65 84
+add node: MDDNode(1,u_34) MDDNode(1,u_35), remove node: MDDNode(1,u_16)
+layer 1 incoming edges: 38
+split the incoming edges: 38 24 14
+the value pair of raw_data is: 492
+split the outgoings edges: 193 132 69 201
+add node: MDDNode(1,u_36) MDDNode(1,u_37), remove node: MDDNode(1,u_17)
+2 4 16
+layer 2 incoming edges: 115
+split the incoming edges: 115 56 59
+the value pair of raw_data is: 6265
+split the outgoings edges: 86 80 82 162
+add node: MDDNode(2,u_38) MDDNode(2,u_39), remove node: MDDNode(2,u_18)
+layer 2 incoming edges: 122
+split the incoming edges: 122 64 58
+the value pair of raw_data is: 6265
+split the outgoings edges: 88 82 78 160
+add node: MDDNode(2,u_40) MDDNode(2,u_41), remove node: MDDNode(2,u_19)
+layer 2 incoming edges: 116
+split the incoming edges: 116 63 53
+the value pair of raw_data is: 6265
+split the outgoings edges: 86 82 81 163
+add node: MDDNode(2,u_42) MDDNode(2,u_43), remove node: MDDNode(2,u_20)
+layer 2 incoming edges: 125
+split the incoming edges: 125 64 61
+the value pair of raw_data is: 6265
+split the outgoings edges: 84 80 77 157
+add node: MDDNode(2,u_44) MDDNode(2,u_45), remove node: MDDNode(2,u_21)
+3 4 16
+layer 3 incoming edges: 144
+split the incoming edges: 144 71 73
+the value pair of raw_data is: 202
+split the outgoings edges: 92 80 79 159
+add node: MDDNode(3,u_46) MDDNode(3,u_47), remove node: MDDNode(3,u_22)
+layer 3 incoming edges: 153
+split the incoming edges: 153 72 81
+the value pair of raw_data is: 202
+split the outgoings edges: 102 82 83 165
+add node: MDDNode(3,u_48) MDDNode(3,u_49), remove node: MDDNode(3,u_23)
+layer 3 incoming edges: 176
+split the incoming edges: 176 86 90
+the value pair of raw_data is: 202
+split the outgoings edges: 107 87 101 188
+add node: MDDNode(3,u_50) MDDNode(3,u_51), remove node: MDDNode(3,u_24)
+layer 3 incoming edges: 169
+split the incoming edges: 169 81 88
+the value pair of raw_data is: 202
+split the outgoings edges: 107 79 95 174
+add node: MDDNode(3,u_52) MDDNode(3,u_53), remove node: MDDNode(3,u_25)
+4 4 16
+layer 4 incoming edges: 153
+split the incoming edges: 153 69 84
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_54) MDDNode(4,u_55), remove node: MDDNode(4,u_26)
+layer 4 incoming edges: 156
+split the incoming edges: 156 74 82
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_56) MDDNode(4,u_57), remove node: MDDNode(4,u_27)
+layer 4 incoming edges: 183
+split the incoming edges: 183 93 90
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_58) MDDNode(4,u_59), remove node: MDDNode(4,u_28)
+layer 4 incoming edges: 194
+split the incoming edges: 194 92 102
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_60) MDDNode(4,u_61), remove node: MDDNode(4,u_29)
+1 8 16
+layer 1 incoming edges: 15
+split the incoming edges: 15 5 10
+the value pair of raw_data is: 492
+split the outgoings edges: 53 19 34 53
+add node: MDDNode(1,u_62) MDDNode(1,u_63), remove node: MDDNode(1,u_30)
+layer 1 incoming edges: 12
+split the incoming edges: 12 4 8
+the value pair of raw_data is: 492
+split the outgoings edges: 53 7 46 53
+add node: MDDNode(1,u_64) MDDNode(1,u_65), remove node: MDDNode(1,u_31)
+layer 1 incoming edges: 16
+split the incoming edges: 16 8 8
+the value pair of raw_data is: 492
+split the outgoings edges: 56 25 31 56
+add node: MDDNode(1,u_66) MDDNode(1,u_67), remove node: MDDNode(1,u_32)
+layer 1 incoming edges: 8
+split the incoming edges: 8 5 3
+the value pair of raw_data is: 492
+split the outgoings edges: 31 24 7 31
+add node: MDDNode(1,u_68) MDDNode(1,u_69), remove node: MDDNode(1,u_33)
+layer 1 incoming edges: 8
+split the incoming edges: 8 3 5
+the value pair of raw_data is: 492
+split the outgoings edges: 19 9 10 19
+add node: MDDNode(1,u_70) MDDNode(1,u_71), remove node: MDDNode(1,u_34)
+layer 1 incoming edges: 14
+split the incoming edges: 14 6 8
+the value pair of raw_data is: 492
+split the outgoings edges: 65 21 46 67
+add node: MDDNode(1,u_72) MDDNode(1,u_73), remove node: MDDNode(1,u_35)
+layer 1 incoming edges: 24
+split the incoming edges: 24 10 14
+the value pair of raw_data is: 492
+split the outgoings edges: 132 66 74 140
+add node: MDDNode(1,u_74) MDDNode(1,u_75), remove node: MDDNode(1,u_36)
+layer 1 incoming edges: 14
+split the incoming edges: 14 8 6
+the value pair of raw_data is: 492
+split the outgoings edges: 69 39 30 69
+add node: MDDNode(1,u_76) MDDNode(1,u_77), remove node: MDDNode(1,u_37)
+2 8 16
+layer 2 incoming edges: 56
+split the incoming edges: 56 30 26
+the value pair of raw_data is: 6265
+split the outgoings edges: 80 78 69 147
+add node: MDDNode(2,u_78) MDDNode(2,u_79), remove node: MDDNode(2,u_38)
+layer 2 incoming edges: 62
+split the incoming edges: 62 30 32
+the value pair of raw_data is: 6265
+split the outgoings edges: 82 79 75 154
+add node: MDDNode(2,u_80) MDDNode(2,u_81), remove node: MDDNode(2,u_39)
+layer 2 incoming edges: 65
+split the incoming edges: 65 27 38
+the value pair of raw_data is: 6265
+split the outgoings edges: 82 74 79 153
+add node: MDDNode(2,u_82) MDDNode(2,u_83), remove node: MDDNode(2,u_40)
+layer 2 incoming edges: 59
+split the incoming edges: 59 23 36
+the value pair of raw_data is: 6265
+split the outgoings edges: 78 72 68 140
+add node: MDDNode(2,u_84) MDDNode(2,u_85), remove node: MDDNode(2,u_41)
+layer 2 incoming edges: 63
+split the incoming edges: 63 23 40
+the value pair of raw_data is: 6265
+split the outgoings edges: 82 75 78 153
+add node: MDDNode(2,u_86) MDDNode(2,u_87), remove node: MDDNode(2,u_42)
+layer 2 incoming edges: 54
+split the incoming edges: 54 31 23
+the value pair of raw_data is: 6265
+split the outgoings edges: 81 76 68 144
+add node: MDDNode(2,u_88) MDDNode(2,u_89), remove node: MDDNode(2,u_43)
+layer 2 incoming edges: 65
+split the incoming edges: 65 31 34
+the value pair of raw_data is: 6265
+split the outgoings edges: 80 71 75 146
+add node: MDDNode(2,u_90) MDDNode(2,u_91), remove node: MDDNode(2,u_44)
+layer 2 incoming edges: 64
+split the incoming edges: 64 30 34
+the value pair of raw_data is: 6265
+split the outgoings edges: 77 64 75 139
+add node: MDDNode(2,u_92) MDDNode(2,u_93), remove node: MDDNode(2,u_45)
+3 8 16
+layer 3 incoming edges: 131
+split the incoming edges: 131 57 74
+the value pair of raw_data is: 202
+split the outgoings edges: 80 59 77 136
+add node: MDDNode(3,u_94) MDDNode(3,u_95), remove node: MDDNode(3,u_46)
+layer 3 incoming edges: 138
+split the incoming edges: 138 66 72
+the value pair of raw_data is: 202
+split the outgoings edges: 79 68 74 142
+add node: MDDNode(3,u_96) MDDNode(3,u_97), remove node: MDDNode(3,u_47)
+layer 3 incoming edges: 128
+split the incoming edges: 128 65 63
+the value pair of raw_data is: 202
+split the outgoings edges: 82 68 67 135
+add node: MDDNode(3,u_98) MDDNode(3,u_99), remove node: MDDNode(3,u_48)
+layer 3 incoming edges: 143
+split the incoming edges: 143 80 63
+the value pair of raw_data is: 202
+split the outgoings edges: 83 69 75 144
+add node: MDDNode(3,u_100) MDDNode(3,u_101), remove node: MDDNode(3,u_49)
+layer 3 incoming edges: 160
+split the incoming edges: 160 82 78
+the value pair of raw_data is: 202
+split the outgoings edges: 87 77 81 158
+add node: MDDNode(3,u_102) MDDNode(3,u_103), remove node: MDDNode(3,u_50)
+layer 3 incoming edges: 167
+split the incoming edges: 167 76 91
+the value pair of raw_data is: 202
+split the outgoings edges: 101 90 72 162
+add node: MDDNode(3,u_104) MDDNode(3,u_105), remove node: MDDNode(3,u_51)
+layer 3 incoming edges: 147
+split the incoming edges: 147 66 81
+the value pair of raw_data is: 202
+split the outgoings edges: 79 59 65 124
+add node: MDDNode(3,u_106) MDDNode(3,u_107), remove node: MDDNode(3,u_52)
+layer 3 incoming edges: 162
+split the incoming edges: 162 86 76
+the value pair of raw_data is: 202
+split the outgoings edges: 95 83 79 162
+add node: MDDNode(3,u_108) MDDNode(3,u_109), remove node: MDDNode(3,u_53)
+4 8 16
+layer 4 incoming edges: 113
+split the incoming edges: 113 57 56
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_110) MDDNode(4,u_111), remove node: MDDNode(4,u_54)
+layer 4 incoming edges: 134
+split the incoming edges: 134 63 71
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_112) MDDNode(4,u_113), remove node: MDDNode(4,u_55)
+layer 4 incoming edges: 128
+split the incoming edges: 128 68 60
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_114) MDDNode(4,u_115), remove node: MDDNode(4,u_56)
+layer 4 incoming edges: 144
+split the incoming edges: 144 80 64
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_116) MDDNode(4,u_117), remove node: MDDNode(4,u_57)
+layer 4 incoming edges: 155
+split the incoming edges: 155 77 78
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_118) MDDNode(4,u_119), remove node: MDDNode(4,u_58)
+layer 4 incoming edges: 154
+split the incoming edges: 154 81 73
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_120) MDDNode(4,u_121), remove node: MDDNode(4,u_59)
+layer 4 incoming edges: 163
+split the incoming edges: 163 81 82
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_122) MDDNode(4,u_123), remove node: MDDNode(4,u_60)
+layer 4 incoming edges: 172
+split the incoming edges: 172 97 75
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_124) MDDNode(4,u_125), remove node: MDDNode(4,u_61)
+The bucket size: [25]
+the graph width list : [1, 16, 16, 16, 16, 1]
+iter= 1 dev 0.2751   test 0.2667   intelligible 0.3436   english 0.2838   gold 0.5308   save acc: 0.3436 time: 2019-11-27T16:54 
+iter= 2 dev 0.3033   test 0.3065   intelligible 0.3917   english 0.3239   gold 0.6747   save acc: 0.3917 time: 2019-11-27T16:55 
+iter= 3 dev 0.3135   test 0.2996   intelligible 0.3814   english 0.3177   gold 0.6473   
+iter= 4 dev 0.3230   test 0.3011   intelligible 0.3905   english 0.3221   gold 0.6541   
+iter= 5 dev 0.3223   test 0.3127   intelligible 0.4064   english 0.3352   gold 0.6781   save acc: 0.4064 time: 2019-11-27T16:58 
+iter= 6 dev 0.3284   test 0.3135   intelligible 0.4068   english 0.3337   gold 0.6849   save acc: 0.4068 time: 2019-11-27T17:00 
+iter= 7 dev 0.3273   test 0.3138   intelligible 0.4076   english 0.3349   gold 0.6712   save acc: 0.4076 time: 2019-11-27T17:01 
+iter= 8 dev 0.3284   test 0.3133   intelligible 0.4072   english 0.3340   gold 0.6832   
+iter= 9 dev 0.3251   test 0.3218   intelligible 0.4159   english 0.3421   gold 0.7038   save acc: 0.4159 time: 2019-11-27T17:03 
+iter= 10 dev 0.3277   test 0.3187   intelligible 0.4133   english 0.3397   gold 0.6986   
+iter= 11 dev 0.3284   test 0.3197   intelligible 0.4133   english 0.3400   gold 0.6969   
+iter= 12 dev 0.3268   test 0.3158   intelligible 0.4110   english 0.3364   gold 0.7021   
+iter= 13 dev 0.3230   test 0.3156   intelligible 0.4098   english 0.3358   gold 0.6918   
+iter= 14 dev 0.3256   test 0.3184   intelligible 0.4133   english 0.3394   gold 0.6986   
+iter= 15 dev 0.3232   test 0.3153   intelligible 0.4098   english 0.3355   gold 0.6918   
+iter= 16 dev 0.3237   test 0.3153   intelligible 0.4098   english 0.3358   gold 0.6986   
+iter= 17 dev 0.3223   test 0.3169   intelligible 0.4110   english 0.3367   gold 0.7003   
+iter= 18 dev 0.3235   test 0.3138   intelligible 0.4076   english 0.3340   gold 0.6935   
+iter= 19 dev 0.3227   test 0.3148   intelligible 0.4098   english 0.3349   gold 0.6918   
+iter= 20 dev 0.3216   test 0.3120   intelligible 0.4068   english 0.3325   gold 0.6884   
+iter= 21 dev 0.3225   test 0.3138   intelligible 0.4080   english 0.3334   gold 0.6918   

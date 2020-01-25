@@ -1,0 +1,19 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/zapier/zapier_data.pkl', load_model=None, mode='train', output='model/zapier/width-150/', width='150')
+configure: {'max_word_id': 3782, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 100, 'keep_prob': 0.75, 'memory_size': 100, 'num_units': 100, 'use_embedding': True, 'epoches': 12, 'batch_size': 20, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.02, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 25149
+model/zapier/width-150/dataset-w-150.pkl
+load_from_json content
+the graph width list : [1, 150, 1, 150, 1, 1]
+it 1 dev 17.50   dev_h 37.21   dev_v 84.87   test 18.69   test_h 36.52   test_v 86.56   save: 18.69 T: 2020-01-13T18:16 
+it 2 dev 25.63   dev_h 30.52   dev_v 87.14   test 26.38   test_h 30.01   test_v 88.07   save: 26.38 T: 2020-01-13T18:18 
+it 3 dev 27.32   dev_h 28.76   dev_v 88.08   test 28.75   test_h 28.27   test_v 89.28   save: 28.75 T: 2020-01-13T18:19 
+it 4 dev 28.38   dev_h 28.57   dev_v 87.77   test 29.68   test_h 27.87   test_v 89.59   save: 29.68 T: 2020-01-13T18:21 
+it 5 dev 29.17   dev_h 27.62   dev_v 88.75   test 30.03   test_h 27.13   test_v 90.52   save: 30.03 T: 2020-01-13T18:22 
+it 6 dev 29.84   dev_h 27.57   dev_v 90.29   test 30.81   test_h 27.21   test_v 91.61   save: 30.81 T: 2020-01-13T18:23 
+it 7 dev 29.90   dev_h 27.15   dev_v 90.52   test 31.66   test_h 26.67   test_v 91.88   save: 31.66 T: 2020-01-13T18:25 
+it 8 dev 29.80   dev_h 27.34   dev_v 89.73   test 31.12   test_h 26.88   test_v 91.57   
+it 9 dev 29.96   dev_h 27.29   dev_v 90.52   test 31.78   test_h 26.59   test_v 91.76   save: 31.78 T: 2020-01-13T18:27 
+it 10 dev 29.86   dev_h 27.59   dev_v 89.21   test 31.24   test_h 27.03   test_v 90.87   
+it 11 dev 30.03   dev_h 27.50   dev_v 89.87   test 31.59   test_h 26.88   test_v 91.72   save: 31.59 T: 2020-01-13T18:29 
+it 12 dev 30.13   dev_h 27.59   dev_v 89.69   test 31.70   test_h 27.07   test_v 91.61   save: 31.70 T: 2020-01-13T18:30 
+it 13 dev 30.21   dev_h 27.48   dev_v 91.23   test 32.44   test_h 26.62   test_v 92.97   save: 32.44 T: 2020-01-13T18:31 

@@ -1,0 +1,38 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-3/', width='3')
+configure: {'max_word_id': 4000, 'bidirectional': True, 'cell_type': 'gru', 'decoder': 'attention', 'embedding_size': 160, 'keep_prob': 0.45, 'memory_size': 25, 'num_units': 160, 'use_embedding': True, 'epoches': 15, 'batch_size': 32, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.002, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8549
+model/ifttt/width-3/dataset-w-3.pkl
+load raw and dump to file
+numArcLayers: 5
+1 1 3
+layer 1 incoming edges: 111
+choose: News & information
+split the incoming edges: 111 13 98
+the value pair of raw_data is: 492
+split the outgoings edges: 443 60 386 446
+add node: MDDNode(1,u_6) MDDNode(1,u_7), remove node: MDDNode(1,u_1)
+1 2 3
+layer 1 incoming edges: 98
+choose: Photo & video
+split the incoming edges: 98 9 89
+the value pair of raw_data is: 492
+split the outgoings edges: 386 35 351 386
+add node: MDDNode(1,u_8) MDDNode(1,u_9), remove node: MDDNode(1,u_7)
+dump to the pickle
+the graph width list : [1, 3, 1, 1, 1, 1]
+it 1 train 0.3290   train_h 0.1677   train_v 0.8970   dev 0.2845   dev_h 0.1789   dev_v 0.8918   new_test 0.3562   new_test_h 0.1609   new_test_v 0.9098   save acc: 0.3562 T: 2020-01-10T02:06 
+it 2 train 0.4142   train_h 0.1464   train_v 0.9119   dev 0.3320   dev_h 0.1670   dev_v 0.9086   new_test 0.4230   new_test_h 0.1443   new_test_v 0.9151   save acc: 0.4230 T: 2020-01-10T02:09 
+it 3 train 0.4663   train_h 0.1334   train_v 0.9136   dev 0.3447   dev_h 0.1638   dev_v 0.8992   new_test 0.4505   new_test_h 0.1374   new_test_v 0.9195   save acc: 0.4505 T: 2020-01-10T02:13 
+it 4 train 0.5003   train_h 0.1249   train_v 0.9162   dev 0.3414   dev_h 0.1647   dev_v 0.8963   new_test 0.4549   new_test_h 0.1363   new_test_v 0.9123   
+it 5 train 0.5319   train_h 0.1170   train_v 0.9246   dev 0.3508   dev_h 0.1623   dev_v 0.8920   new_test 0.4638   new_test_h 0.1340   new_test_v 0.9232   save acc: 0.4638 T: 2020-01-10T02:19 
+it 6 train 0.5540   train_h 0.1115   train_v 0.9253   dev 0.3467   dev_h 0.1633   dev_v 0.8869   new_test 0.4565   new_test_h 0.1359   new_test_v 0.9268   
+it 7 train 0.5734   train_h 0.1066   train_v 0.9320   dev 0.3493   dev_h 0.1627   dev_v 0.8922   new_test 0.4658   new_test_h 0.1335   new_test_v 0.9232   
+it 8 train 0.5882   train_h 0.1030   train_v 0.9337   dev 0.3525   dev_h 0.1619   dev_v 0.8934   new_test 0.4590   new_test_h 0.1353   new_test_v 0.9240   save acc: 0.4590 T: 2020-01-10T02:29 
+it 9 train 0.6016   train_h 0.0996   train_v 0.9386   dev 0.3484   dev_h 0.1629   dev_v 0.8961   new_test 0.4598   new_test_h 0.1351   new_test_v 0.9199   
+it 10 train 0.6094   train_h 0.0977   train_v 0.9363   dev 0.3474   dev_h 0.1632   dev_v 0.8886   new_test 0.4618   new_test_h 0.1346   new_test_v 0.9236   
+it 11 train 0.6170   train_h 0.0958   train_v 0.9392   dev 0.3438   dev_h 0.1641   dev_v 0.8942   new_test 0.4590   new_test_h 0.1353   new_test_v 0.9232   
+it 12 train 0.6241   train_h 0.0940   train_v 0.9404   dev 0.3450   dev_h 0.1638   dev_v 0.8910   new_test 0.4606   new_test_h 0.1349   new_test_v 0.9220   
+it 13 train 0.6284   train_h 0.0929   train_v 0.9423   dev 0.3447   dev_h 0.1638   dev_v 0.8934   new_test 0.4602   new_test_h 0.1350   new_test_v 0.9244   
+it 14 train 0.6310   train_h 0.0923   train_v 0.9429   dev 0.3423   dev_h 0.1644   dev_v 0.8951   new_test 0.4581   new_test_h 0.1355   new_test_v 0.9248   
+it 15 train 0.6349   train_h 0.0913   train_v 0.9441   dev 0.3409   dev_h 0.1648   dev_v 0.8959   new_test 0.4598   new_test_h 0.1351   new_test_v 0.9236   
+it 16 train 0.6366   train_h 0.0909   train_v 0.9433   dev 0.3406   dev_h 0.1648   dev_v 0.8942   new_test 0.4553   new_test_h 0.1362   new_test_v 0.9191   

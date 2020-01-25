@@ -1,0 +1,136 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-10/', width='10')
+configure: {'max_word_id': 3782, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 100, 'keep_prob': 0.75, 'memory_size': 100, 'num_units': 100, 'use_embedding': True, 'epoches': 12, 'batch_size': 20, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.02, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8549
+model/ifttt/width-10/dataset-w-10.pkl
+load raw and dump to file
+numArcLayers: 5
+layer:1, node:MDDNode(1,u_1), in=111, out=443
+choose: News & information
+split in: 111 -> (98,13)
+split out: 443 -> (386,60,446)
+add: MDDNode(1,u-6) MDDNode(1,u-7), del:MDDNode(1,u_1)
+2 (13,60) (98,386) 
+layer:1, node:MDDNode(1,u-7), in=98, out=386
+choose: Photo & video
+split in: 98 -> (89,9)
+split out: 386 -> (351,35,386)
+add: MDDNode(1,u-8) MDDNode(1,u-9), del:MDDNode(1,u-7)
+3 (13,60) (9,35) (89,351) 
+layer:1, node:MDDNode(1,u-9), in=89, out=351
+choose: Social networks
+split in: 89 -> (82,7)
+split out: 351 -> (296,55,351)
+add: MDDNode(1,u-10) MDDNode(1,u-11), del:MDDNode(1,u-9)
+4 (13,60) (9,35) (7,55) (82,296) 
+layer:1, node:MDDNode(1,u-11), in=82, out=296
+choose: Others
+split in: 82 -> (75,7)
+split out: 296 -> (280,21,301)
+add: MDDNode(1,u-12) MDDNode(1,u-13), del:MDDNode(1,u-11)
+5 (13,60) (9,35) (7,55) (7,21) (75,280) 
+layer:1, node:MDDNode(1,u-13), in=75, out=280
+choose: Bookmarking
+split in: 75 -> (69,6)
+split out: 280 -> (268,12,280)
+add: MDDNode(1,u-14) MDDNode(1,u-15), del:MDDNode(1,u-13)
+6 (13,60) (9,35) (7,55) (7,21) (6,12) (69,268) 
+layer:1, node:MDDNode(1,u-15), in=69, out=268
+choose: Shopping
+split in: 69 -> (63,6)
+split out: 268 -> (245,23,268)
+add: MDDNode(1,u-16) MDDNode(1,u-17), del:MDDNode(1,u-15)
+7 (13,60) (9,35) (7,55) (7,21) (6,12) (6,23) (63,245) 
+layer:1, node:MDDNode(1,u-17), in=63, out=245
+choose: Security & monitoring systems
+split in: 63 -> (58,5)
+split out: 245 -> (228,18,246)
+add: MDDNode(1,u-18) MDDNode(1,u-19), del:MDDNode(1,u-17)
+8 (13,60) (9,35) (7,55) (7,21) (6,12) (6,23) (5,18) (58,228) 
+layer:1, node:MDDNode(1,u-19), in=58, out=228
+choose: Finance & payments
+split in: 58 -> (54,4)
+split out: 228 -> (211,17,228)
+add: MDDNode(1,u-20) MDDNode(1,u-21), del:MDDNode(1,u-19)
+9 (13,60) (9,35) (7,55) (7,21) (6,12) (6,23) (5,18) (4,17) (54,211) 
+layer:1, node:MDDNode(1,u-21), in=54, out=211
+choose: Mobile devices & accessories
+split in: 54 -> (50,4)
+split out: 211 -> (199,12,211)
+add: MDDNode(1,u-22) MDDNode(1,u-23), del:MDDNode(1,u-21)
+10 (13,60) (9,35) (7,55) (7,21) (6,12) (6,23) (5,18) (4,17) (4,12) (50,199) 
+layer:3, node:MDDNode(3,u_3), in=88, out=161
+choose: Notifications
+split in: 88 -> (81,7)
+split out: 161 -> (154,9,163)
+add: MDDNode(3,u-24) MDDNode(3,u-25), del:MDDNode(3,u_3)
+2 (7,9) (81,154) 
+layer:3, node:MDDNode(3,u-25), in=81, out=154
+choose: Social networks
+split in: 81 -> (75,6)
+split out: 154 -> (141,14,155)
+add: MDDNode(3,u-26) MDDNode(3,u-27), del:MDDNode(3,u-25)
+3 (7,9) (6,14) (75,141) 
+layer:3, node:MDDNode(3,u-27), in=75, out=141
+choose: Bookmarking
+split in: 75 -> (69,6)
+split out: 141 -> (135,7,142)
+add: MDDNode(3,u-28) MDDNode(3,u-29), del:MDDNode(3,u-27)
+4 (7,9) (6,14) (6,7) (69,135) 
+layer:3, node:MDDNode(3,u-29), in=69, out=135
+choose: Others
+split in: 69 -> (63,6)
+split out: 135 -> (125,12,137)
+add: MDDNode(3,u-30) MDDNode(3,u-31), del:MDDNode(3,u-29)
+5 (7,9) (6,14) (6,7) (6,12) (63,125) 
+layer:3, node:MDDNode(3,u-31), in=63, out=125
+choose: Mobile devices & accessories
+split in: 63 -> (59,4)
+split out: 125 -> (120,7,127)
+add: MDDNode(3,u-32) MDDNode(3,u-33), del:MDDNode(3,u-31)
+6 (7,9) (6,14) (6,7) (6,12) (4,7) (59,120) 
+layer:3, node:MDDNode(3,u-33), in=59, out=120
+choose: Communication
+split in: 59 -> (55,4)
+split out: 120 -> (116,4,120)
+add: MDDNode(3,u-34) MDDNode(3,u-35), del:MDDNode(3,u-33)
+7 (7,9) (6,14) (6,7) (6,12) (4,7) (4,4) (55,116) 
+layer:3, node:MDDNode(3,u-35), in=55, out=116
+choose: Photo & video
+split in: 55 -> (51,4)
+split out: 116 -> (112,4,116)
+add: MDDNode(3,u-36) MDDNode(3,u-37), del:MDDNode(3,u-35)
+8 (7,9) (6,14) (6,7) (6,12) (4,7) (4,4) (4,4) (51,112) 
+layer:3, node:MDDNode(3,u-37), in=51, out=112
+choose: Cloud storage
+split in: 51 -> (47,4)
+split out: 112 -> (105,7,112)
+add: MDDNode(3,u-38) MDDNode(3,u-39), del:MDDNode(3,u-37)
+9 (7,9) (6,14) (6,7) (6,12) (4,7) (4,4) (4,4) (4,7) (47,105) 
+layer:3, node:MDDNode(3,u-39), in=47, out=105
+choose: Environment control & monitoring
+split in: 47 -> (43,4)
+split out: 105 -> (95,10,105)
+add: MDDNode(3,u-40) MDDNode(3,u-41), del:MDDNode(3,u-39)
+10 (7,9) (6,14) (6,7) (6,12) (4,7) (4,4) (4,4) (4,7) (4,10) (43,95) 
+=profile=
+(0, 111) 
+(13, 60) (9, 35) (7, 55) (7, 21) (6, 12) (6, 23) (5, 18) (4, 17) (4, 12) (50, 199) 
+(452, 88) 
+(7, 9) (6, 14) (6, 7) (6, 12) (4, 7) (4, 4) (4, 4) (4, 7) (4, 10) (43, 95) 
+(169, 1) 
+(1, 0) 
+dump to the pickle
+the graph width list : [1, 10, 1, 10, 1, 1]
+it 1 dev 26.93   dev_h 44.05   dev_v 92.19   new_test 36.07   new_test_h 33.03   new_test_v 94.50   save: 36.07 T: 2020-01-13T02:40 
+it 2 dev 30.35   dev_h 41.27   dev_v 93.39   new_test 40.36   new_test_h 31.04   new_test_v 94.50   save: 40.36 T: 2020-01-13T02:41 
+it 3 dev 31.00   dev_h 41.27   dev_v 93.20   new_test 41.73   new_test_h 30.36   new_test_v 94.42   save: 41.73 T: 2020-01-13T02:43 
+it 4 dev 30.93   dev_h 41.25   dev_v 93.18   new_test 41.25   new_test_h 30.62   new_test_v 94.02   
+it 5 dev 31.05   dev_h 41.28   dev_v 92.98   new_test 42.30   new_test_h 30.26   new_test_v 93.89   save: 42.30 T: 2020-01-13T02:45 
+it 6 dev 30.54   dev_h 41.33   dev_v 93.32   new_test 41.29   new_test_h 30.61   new_test_v 93.89   
+it 7 dev 31.10   dev_h 41.07   dev_v 92.89   new_test 41.16   new_test_h 30.53   new_test_v 94.18   save: 41.16 T: 2020-01-13T02:48 
+it 8 dev 30.81   dev_h 41.64   dev_v 93.01   new_test 42.50   new_test_h 29.90   new_test_v 94.06   
+it 9 dev 30.64   dev_h 41.42   dev_v 92.38   new_test 41.00   new_test_h 30.80   new_test_v 94.02   
+it 10 dev 30.57   dev_h 41.68   dev_v 92.57   new_test 40.96   new_test_h 30.67   new_test_v 93.85   
+it 11 dev 30.38   dev_h 41.72   dev_v 92.57   new_test 40.72   new_test_h 30.87   new_test_v 93.65   
+it 12 dev 30.62   dev_h 41.72   dev_v 92.79   new_test 40.96   new_test_h 30.88   new_test_v 93.53   
+it 13 dev 30.40   dev_h 41.92   dev_v 92.60   new_test 41.00   new_test_h 30.91   new_test_v 93.53   

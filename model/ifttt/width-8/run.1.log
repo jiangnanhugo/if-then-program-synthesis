@@ -1,0 +1,23 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-8/', width='8')
+configure: {'max_word_id': 4000, 'bidirectional': True, 'cell_type': 'gru', 'decoder': 'attention', 'embedding_size': 160, 'keep_prob': 0.45, 'memory_size': 25, 'num_layers': 1, 'num_units': 160, 'use_embedding': True, 'epoches': 15, 'batch_size': 32, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.002, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8580
+model/ifttt/width-8/IFTTT-w-8.pkl
+load_from_json content
+The bucket size: [25]
+the graph width list : [1, 8, 1, 1, 1, 1]
+it 1 train 0.3283   dev 0.2886   intelligible 0.3466   intelligible_hm 0.1634   save acc: 0.3466 T: 2019-12-08T01:53 
+it 2 train 0.4141   dev 0.3216   intelligible 0.3977   intelligible_hm 0.1506   save acc: 0.3977 T: 2019-12-08T01:55 
+it 3 train 0.4615   dev 0.3438   intelligible 0.4337   intelligible_hm 0.1416   save acc: 0.4337 T: 2019-12-08T01:57 
+it 4 train 0.4991   dev 0.3469   intelligible 0.4356   intelligible_hm 0.1411   save acc: 0.4356 T: 2019-12-08T01:59 
+it 5 train 0.5313   dev 0.3486   intelligible 0.4413   intelligible_hm 0.1397   save acc: 0.4413 T: 2019-12-08T02:01 
+it 6 train 0.5518   dev 0.3488   intelligible 0.4405   intelligible_hm 0.1399   save acc: 0.4405 T: 2019-12-08T02:03 
+it 7 train 0.5731   dev 0.3540   intelligible 0.4455   intelligible_hm 0.1386   save acc: 0.4455 T: 2019-12-08T02:05 
+it 8 train 0.5856   dev 0.3509   intelligible 0.4413   intelligible_hm 0.1397   
+it 9 train 0.5960   dev 0.3493   intelligible 0.4371   intelligible_hm 0.1407   
+it 10 train 0.6049   dev 0.3495   intelligible 0.4390   intelligible_hm 0.1402   
+it 11 train 0.6138   dev 0.3486   intelligible 0.4364   intelligible_hm 0.1409   
+it 12 train 0.6191   dev 0.3467   intelligible 0.4383   intelligible_hm 0.1404   
+it 13 train 0.6231   dev 0.3467   intelligible 0.4390   intelligible_hm 0.1402   
+it 14 train 0.6267   dev 0.3460   intelligible 0.4390   intelligible_hm 0.1402   
+it 15 train 0.6291   dev 0.3495   intelligible 0.4360   intelligible_hm 0.1410   
+it 16 train 0.6313   dev 0.3453   intelligible 0.4341   intelligible_hm 0.1415   

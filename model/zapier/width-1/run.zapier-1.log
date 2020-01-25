@@ -1,0 +1,19 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/zapier/zapier_data.pkl', load_model=None, mode='train', output='model/zapier/width-1/', width='1')
+configure: {'max_word_id': 3782, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 100, 'keep_prob': 0.75, 'memory_size': 100, 'num_units': 100, 'use_embedding': True, 'epoches': 12, 'batch_size': 20, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.02, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 25149
+model/zapier/width-1/dataset-w-1.pkl
+load_from_json content
+the graph width list : [1, 1, 1, 1, 1, 1]
+it 1 train 30.60   train_h 27.54   train_v 80.60   dev 15.34   dev_h 38.10   dev_v 74.74   test 17.33   test_h 37.22   test_v 76.65   save: 17.33 T: 2020-01-14T01:13 
+it 2 train 50.51   train_h 16.51   train_v 89.55   dev 24.28   dev_h 30.67   dev_v 80.60   test 25.68   test_h 30.12   test_v 81.66   save: 25.68 T: 2020-01-14T01:16 
+it 3 train 60.22   train_h 12.71   train_v 93.90   dev 26.38   dev_h 28.42   dev_v 83.64   test 27.70   test_h 27.91   test_v 85.31   save: 27.70 T: 2020-01-14T01:20 
+it 4 train 66.57   train_h 10.52   train_v 96.15   dev 27.73   dev_h 27.75   dev_v 84.23   test 30.11   test_h 26.99   test_v 86.21   save: 30.11 T: 2020-01-14T01:24 
+it 5 train 71.57   train_h 8.93   train_v 97.33   dev 29.44   dev_h 27.05   dev_v 83.58   test 30.92   test_h 26.67   test_v 86.36   save: 30.92 T: 2020-01-14T01:28 
+it 6 train 72.69   train_h 8.62   train_v 98.09   dev 29.49   dev_h 26.96   dev_v 85.83   test 30.42   test_h 26.52   test_v 87.10   save: 30.42 T: 2020-01-14T01:31 
+it 7 train 76.11   train_h 7.54   train_v 98.80   dev 29.84   dev_h 26.63   dev_v 85.71   test 31.55   test_h 26.12   test_v 87.53   save: 31.55 T: 2020-01-14T01:35 
+it 8 train 77.08   train_h 7.13   train_v 99.21   dev 29.55   dev_h 27.01   dev_v 85.68   test 30.69   test_h 26.60   test_v 87.22   
+it 9 train 78.50   train_h 6.75   train_v 99.35   dev 29.99   dev_h 26.85   dev_v 85.64   test 32.17   test_h 26.14   test_v 88.19   save: 32.17 T: 2020-01-14T01:43 
+it 10 train 79.11   train_h 6.51   train_v 99.56   dev 30.19   dev_h 26.75   dev_v 85.77   test 31.74   test_h 26.29   test_v 88.00   save: 31.74 T: 2020-01-14T01:46 
+it 11 train 80.00   train_h 6.38   train_v 99.75   dev 30.03   dev_h 27.07   dev_v 86.89   test 31.74   test_h 26.60   test_v 88.38   
+it 12 train 80.09   train_h 6.23   train_v 99.68   dev 29.88   dev_h 26.98   dev_v 86.37   test 31.27   test_h 26.70   test_v 88.27   
+it 13 train 80.02   train_h 6.28   train_v 99.72   dev 30.11   dev_h 26.98   dev_v 86.68   test 31.97   test_h 26.49   test_v 88.93   

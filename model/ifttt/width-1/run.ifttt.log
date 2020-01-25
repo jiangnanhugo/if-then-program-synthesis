@@ -1,0 +1,19 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-1/', width='1')
+configure: {'max_word_id': 3782, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 100, 'keep_prob': 0.75, 'memory_size': 100, 'num_units': 100, 'use_embedding': True, 'epoches': 12, 'batch_size': 20, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.02, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8549
+model/ifttt/width-1/dataset-w-1.pkl
+load_from_json content
+the graph width list : [1, 1, 1, 1, 1, 1]
+it 1 dev 26.95   dev_h 43.04   dev_v 82.21   new_test 36.35   new_test_h 32.25   new_test_v 84.55   save: 36.35 T: 2020-01-12T23:41 
+it 2 dev 29.00   dev_h 41.19   dev_v 82.26   new_test 39.87   new_test_h 30.41   new_test_v 85.81   save: 39.87 T: 2020-01-12T23:43 
+it 3 dev 30.01   dev_h 40.39   dev_v 83.56   new_test 40.92   new_test_h 29.62   new_test_v 87.34   save: 40.92 T: 2020-01-12T23:44 
+it 4 dev 30.01   dev_h 40.63   dev_v 83.53   new_test 41.37   new_test_h 29.37   new_test_v 86.45   
+it 5 dev 30.62   dev_h 40.47   dev_v 83.24   new_test 41.04   new_test_h 29.40   new_test_v 86.78   save: 41.04 T: 2020-01-12T23:47 
+it 6 dev 30.30   dev_h 40.65   dev_v 84.14   new_test 42.05   new_test_h 29.03   new_test_v 86.78   
+it 7 dev 31.24   dev_h 40.25   dev_v 83.51   new_test 42.05   new_test_h 29.20   new_test_v 87.51   save: 42.05 T: 2020-01-12T23:51 
+it 8 dev 30.33   dev_h 40.86   dev_v 83.00   new_test 42.34   new_test_h 29.08   new_test_v 87.63   
+it 9 dev 29.99   dev_h 41.03   dev_v 83.29   new_test 42.50   new_test_h 29.09   new_test_v 87.42   
+it 10 dev 30.09   dev_h 41.04   dev_v 82.52   new_test 42.46   new_test_h 29.20   new_test_v 87.26   
+it 11 dev 30.01   dev_h 41.14   dev_v 82.55   new_test 42.09   new_test_h 29.43   new_test_v 87.83   
+it 12 dev 30.16   dev_h 41.03   dev_v 82.57   new_test 42.01   new_test_h 29.30   new_test_v 86.49   
+it 13 dev 29.92   dev_h 41.09   dev_v 82.69   new_test 42.26   new_test_h 29.26   new_test_v 87.30   

@@ -1,0 +1,374 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-51/', width='51')
+configure: {'max_word_id': 4000, 'bidirectional': True, 'cell_type': 'gru', 'decoder': 'attention', 'embedding_size': 160, 'keep_prob': 0.45, 'memory_size': 25, 'num_units': 160, 'use_embedding': True, 'epoches': 15, 'batch_size': 32, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.002, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8549
+model/ifttt/width-51/dataset-w-51.pkl
+load raw and dump to file
+numArcLayers: 5
+1 1 51
+layer 1 incoming edges: 111
+choose: News & information
+split the incoming edges: 111 13 98
+the value pair of raw_data is: 492
+split the outgoings edges: 443 60 386 446
+add node: MDDNode(1,u_6) MDDNode(1,u_7), remove node: MDDNode(1,u_1)
+1 2 51
+layer 1 incoming edges: 98
+choose: Photo & video
+split the incoming edges: 98 9 89
+the value pair of raw_data is: 492
+split the outgoings edges: 386 35 351 386
+add node: MDDNode(1,u_8) MDDNode(1,u_9), remove node: MDDNode(1,u_7)
+1 3 51
+layer 1 incoming edges: 89
+choose: Social networks
+split the incoming edges: 89 7 82
+the value pair of raw_data is: 492
+split the outgoings edges: 351 55 296 351
+add node: MDDNode(1,u_10) MDDNode(1,u_11), remove node: MDDNode(1,u_9)
+1 4 51
+layer 1 incoming edges: 82
+choose: Others
+split the incoming edges: 82 7 75
+the value pair of raw_data is: 492
+split the outgoings edges: 296 21 280 301
+add node: MDDNode(1,u_12) MDDNode(1,u_13), remove node: MDDNode(1,u_11)
+1 5 51
+layer 1 incoming edges: 75
+choose: Shopping
+split the incoming edges: 75 6 69
+the value pair of raw_data is: 492
+split the outgoings edges: 280 23 257 280
+add node: MDDNode(1,u_14) MDDNode(1,u_15), remove node: MDDNode(1,u_13)
+1 6 51
+layer 1 incoming edges: 69
+choose: Bookmarking
+split the incoming edges: 69 6 63
+the value pair of raw_data is: 492
+split the outgoings edges: 257 12 245 257
+add node: MDDNode(1,u_16) MDDNode(1,u_17), remove node: MDDNode(1,u_15)
+1 7 51
+layer 1 incoming edges: 63
+choose: Security & monitoring systems
+split the incoming edges: 63 5 58
+the value pair of raw_data is: 492
+split the outgoings edges: 245 18 228 246
+add node: MDDNode(1,u_18) MDDNode(1,u_19), remove node: MDDNode(1,u_17)
+1 8 51
+layer 1 incoming edges: 58
+choose: Health & fitness
+split the incoming edges: 58 4 54
+the value pair of raw_data is: 492
+split the outgoings edges: 228 26 203 229
+add node: MDDNode(1,u_20) MDDNode(1,u_21), remove node: MDDNode(1,u_19)
+1 9 51
+layer 1 incoming edges: 54
+choose: Finance & payments
+split the incoming edges: 54 4 50
+the value pair of raw_data is: 492
+split the outgoings edges: 203 17 186 203
+add node: MDDNode(1,u_22) MDDNode(1,u_23), remove node: MDDNode(1,u_21)
+1 10 51
+layer 1 incoming edges: 50
+choose: Mobile devices & accessories
+split the incoming edges: 50 4 46
+the value pair of raw_data is: 492
+split the outgoings edges: 186 12 174 186
+add node: MDDNode(1,u_24) MDDNode(1,u_25), remove node: MDDNode(1,u_23)
+1 11 51
+layer 1 incoming edges: 46
+choose: Email
+split the incoming edges: 46 3 43
+the value pair of raw_data is: 492
+split the outgoings edges: 174 10 164 174
+add node: MDDNode(1,u_26) MDDNode(1,u_27), remove node: MDDNode(1,u_25)
+1 12 51
+layer 1 incoming edges: 43
+choose: Gardening
+split the incoming edges: 43 3 40
+the value pair of raw_data is: 492
+split the outgoings edges: 164 9 155 164
+add node: MDDNode(1,u_28) MDDNode(1,u_29), remove node: MDDNode(1,u_27)
+1 13 51
+layer 1 incoming edges: 40
+choose: Smart hubs & systems
+split the incoming edges: 40 3 37
+the value pair of raw_data is: 492
+split the outgoings edges: 155 20 141 161
+add node: MDDNode(1,u_30) MDDNode(1,u_31), remove node: MDDNode(1,u_29)
+1 14 51
+layer 1 incoming edges: 37
+choose: Environment control & monitoring
+split the incoming edges: 37 3 34
+the value pair of raw_data is: 492
+split the outgoings edges: 141 9 134 143
+add node: MDDNode(1,u_32) MDDNode(1,u_33), remove node: MDDNode(1,u_31)
+1 15 51
+layer 1 incoming edges: 34
+choose: Blogging
+split the incoming edges: 34 3 31
+the value pair of raw_data is: 492
+split the outgoings edges: 134 13 121 134
+add node: MDDNode(1,u_34) MDDNode(1,u_35), remove node: MDDNode(1,u_33)
+1 16 51
+layer 1 incoming edges: 31
+choose: Power monitoring & management
+split the incoming edges: 31 3 28
+the value pair of raw_data is: 492
+split the outgoings edges: 121 11 112 123
+add node: MDDNode(1,u_36) MDDNode(1,u_37), remove node: MDDNode(1,u_35)
+1 17 51
+layer 1 incoming edges: 28
+choose: Notifications
+split the incoming edges: 28 3 25
+the value pair of raw_data is: 492
+split the outgoings edges: 112 4 108 112
+add node: MDDNode(1,u_38) MDDNode(1,u_39), remove node: MDDNode(1,u_37)
+1 18 51
+layer 1 incoming edges: 25
+choose: Weather
+split the incoming edges: 25 3 22
+the value pair of raw_data is: 492
+split the outgoings edges: 108 30 78 108
+add node: MDDNode(1,u_40) MDDNode(1,u_41), remove node: MDDNode(1,u_39)
+1 19 51
+layer 1 incoming edges: 22
+choose: DIY electronics
+split the incoming edges: 22 2 20
+the value pair of raw_data is: 492
+split the outgoings edges: 78 2 76 78
+add node: MDDNode(1,u_42) MDDNode(1,u_43), remove node: MDDNode(1,u_41)
+1 20 51
+layer 1 incoming edges: 20
+choose: Connected car
+split the incoming edges: 20 2 18
+the value pair of raw_data is: 492
+split the outgoings edges: 76 10 66 76
+add node: MDDNode(1,u_44) MDDNode(1,u_45), remove node: MDDNode(1,u_43)
+1 21 51
+layer 1 incoming edges: 18
+choose: Task management & to-dos
+split the incoming edges: 18 2 16
+the value pair of raw_data is: 492
+split the outgoings edges: 66 11 55 66
+add node: MDDNode(1,u_46) MDDNode(1,u_47), remove node: MDDNode(1,u_45)
+1 22 51
+layer 1 incoming edges: 16
+choose: Calendars & scheduling
+split the incoming edges: 16 2 14
+the value pair of raw_data is: 492
+split the outgoings edges: 55 8 47 55
+add node: MDDNode(1,u_48) MDDNode(1,u_49), remove node: MDDNode(1,u_47)
+1 23 51
+layer 1 incoming edges: 14
+choose: Contacts
+split the incoming edges: 14 2 12
+the value pair of raw_data is: 492
+split the outgoings edges: 47 3 44 47
+add node: MDDNode(1,u_50) MDDNode(1,u_51), remove node: MDDNode(1,u_49)
+1 24 51
+layer 1 incoming edges: 13
+only split: [MDDArc('space', MDDNode(0, 's'), MDDNode(1, 'u_6'))]
+split the incoming edges: 13 1 12
+the value pair of raw_data is: 492
+split the outgoings edges: 60 8 52 60
+add node: MDDNode(1,u_52) MDDNode(1,u_53), remove node: MDDNode(1,u_6)
+1 25 51
+layer 1 incoming edges: 12
+choose: Communication
+split the incoming edges: 12 2 10
+the value pair of raw_data is: 492
+split the outgoings edges: 44 12 32 44
+add node: MDDNode(1,u_54) MDDNode(1,u_55), remove node: MDDNode(1,u_51)
+1 26 51
+layer 1 incoming edges: 12
+only split: [MDDArc('digg', MDDNode(0, 's'), MDDNode(1, 'u_53'))]
+split the incoming edges: 12 1 11
+the value pair of raw_data is: 492
+split the outgoings edges: 52 8 44 52
+add node: MDDNode(1,u_56) MDDNode(1,u_57), remove node: MDDNode(1,u_53)
+1 27 51
+layer 1 incoming edges: 11
+only split: [MDDArc('craigslist', MDDNode(0, 's'), MDDNode(1, 'u_57'))]
+split the incoming edges: 11 1 10
+the value pair of raw_data is: 492
+split the outgoings edges: 44 1 43 44
+add node: MDDNode(1,u_58) MDDNode(1,u_59), remove node: MDDNode(1,u_57)
+1 28 51
+layer 1 incoming edges: 10
+choose: Appliances
+split the incoming edges: 10 2 8
+the value pair of raw_data is: 492
+split the outgoings edges: 32 2 30 32
+add node: MDDNode(1,u_60) MDDNode(1,u_61), remove node: MDDNode(1,u_55)
+1 29 51
+layer 1 incoming edges: 10
+only split: [MDDArc('ifttt', MDDNode(0, 's'), MDDNode(1, 'u_59'))]
+split the incoming edges: 10 1 9
+the value pair of raw_data is: 492
+split the outgoings edges: 43 11 32 43
+add node: MDDNode(1,u_62) MDDNode(1,u_63), remove node: MDDNode(1,u_59)
+1 30 51
+layer 1 incoming edges: 9
+only split: [MDDArc('youtube', MDDNode(0, 's'), MDDNode(1, 'u_8'))]
+split the incoming edges: 9 1 8
+the value pair of raw_data is: 492
+split the outgoings edges: 35 2 34 36
+add node: MDDNode(1,u_64) MDDNode(1,u_65), remove node: MDDNode(1,u_8)
+1 31 51
+layer 1 incoming edges: 9
+only split: [MDDArc('feedly', MDDNode(0, 's'), MDDNode(1, 'u_63'))]
+split the incoming edges: 9 1 8
+the value pair of raw_data is: 492
+split the outgoings edges: 32 4 28 32
+add node: MDDNode(1,u_66) MDDNode(1,u_67), remove node: MDDNode(1,u_63)
+1 32 51
+layer 1 incoming edges: 8
+choose: Journaling & personal data
+split the incoming edges: 8 1 7
+the value pair of raw_data is: 492
+split the outgoings edges: 30 3 27 30
+add node: MDDNode(1,u_68) MDDNode(1,u_69), remove node: MDDNode(1,u_61)
+1 33 51
+layer 1 incoming edges: 8
+only split: [MDDArc('flickr', MDDNode(0, 's'), MDDNode(1, 'u_65'))]
+split the incoming edges: 8 1 7
+the value pair of raw_data is: 492
+split the outgoings edges: 34 5 29 34
+add node: MDDNode(1,u_70) MDDNode(1,u_71), remove node: MDDNode(1,u_65)
+1 34 51
+layer 1 incoming edges: 8
+only split: [MDDArc('sports_illustrated', MDDNode(0, 's'), MDDNode(1, 'u_67'))]
+split the incoming edges: 8 1 7
+the value pair of raw_data is: 492
+split the outgoings edges: 28 2 28 30
+add node: MDDNode(1,u_72) MDDNode(1,u_73), remove node: MDDNode(1,u_67)
+1 35 51
+layer 1 incoming edges: 7
+only split: [MDDArc('reddit', MDDNode(0, 's'), MDDNode(1, 'u_10'))]
+split the incoming edges: 7 1 6
+the value pair of raw_data is: 492
+split the outgoings edges: 55 9 47 56
+add node: MDDNode(1,u_74) MDDNode(1,u_75), remove node: MDDNode(1,u_10)
+1 36 51
+layer 1 incoming edges: 7
+only split: [MDDArc('entertainment_weekly', MDDNode(0, 's'), MDDNode(1, 'u_12'))]
+split the incoming edges: 7 1 6
+the value pair of raw_data is: 492
+split the outgoings edges: 21 2 19 21
+add node: MDDNode(1,u_76) MDDNode(1,u_77), remove node: MDDNode(1,u_12)
+1 37 51
+layer 1 incoming edges: 7
+choose: Location
+split the incoming edges: 7 1 6
+the value pair of raw_data is: 492
+split the outgoings edges: 27 3 24 27
+add node: MDDNode(1,u_78) MDDNode(1,u_79), remove node: MDDNode(1,u_69)
+1 38 51
+layer 1 incoming edges: 7
+only split: [MDDArc('giphy', MDDNode(0, 's'), MDDNode(1, 'u_71'))]
+split the incoming edges: 7 1 6
+the value pair of raw_data is: 492
+split the outgoings edges: 29 3 26 29
+add node: MDDNode(1,u_80) MDDNode(1,u_81), remove node: MDDNode(1,u_71)
+1 39 51
+layer 1 incoming edges: 7
+only split: [MDDArc('instyle', MDDNode(0, 's'), MDDNode(1, 'u_73'))]
+split the incoming edges: 7 1 6
+the value pair of raw_data is: 492
+split the outgoings edges: 28 2 28 30
+add node: MDDNode(1,u_82) MDDNode(1,u_83), remove node: MDDNode(1,u_73)
+1 40 51
+layer 1 incoming edges: 6
+only split: [MDDArc('fiverr', MDDNode(0, 's'), MDDNode(1, 'u_14'))]
+split the incoming edges: 6 1 5
+the value pair of raw_data is: 492
+split the outgoings edges: 23 9 14 23
+add node: MDDNode(1,u_84) MDDNode(1,u_85), remove node: MDDNode(1,u_14)
+1 41 51
+layer 1 incoming edges: 6
+only split: [MDDArc('pinboard', MDDNode(0, 's'), MDDNode(1, 'u_16'))]
+split the incoming edges: 6 1 5
+the value pair of raw_data is: 492
+split the outgoings edges: 12 2 12 14
+add node: MDDNode(1,u_86) MDDNode(1,u_87), remove node: MDDNode(1,u_16)
+1 42 51
+layer 1 incoming edges: 6
+only split: [MDDArc('twitter', MDDNode(0, 's'), MDDNode(1, 'u_75'))]
+split the incoming edges: 6 1 5
+the value pair of raw_data is: 492
+split the outgoings edges: 47 10 37 47
+add node: MDDNode(1,u_88) MDDNode(1,u_89), remove node: MDDNode(1,u_75)
+1 43 51
+layer 1 incoming edges: 6
+only split: [MDDArc('eyefi', MDDNode(0, 's'), MDDNode(1, 'u_77'))]
+split the incoming edges: 6 1 5
+the value pair of raw_data is: 492
+split the outgoings edges: 19 2 17 19
+add node: MDDNode(1,u_90) MDDNode(1,u_91), remove node: MDDNode(1,u_77)
+1 44 51
+layer 1 incoming edges: 6
+choose: Developer tools
+split the incoming edges: 6 1 5
+the value pair of raw_data is: 492
+split the outgoings edges: 24 5 19 24
+add node: MDDNode(1,u_92) MDDNode(1,u_93), remove node: MDDNode(1,u_79)
+1 45 51
+layer 1 incoming edges: 6
+only split: [MDDArc('500px', MDDNode(0, 's'), MDDNode(1, 'u_81'))]
+split the incoming edges: 6 1 5
+the value pair of raw_data is: 492
+split the outgoings edges: 26 6 20 26
+add node: MDDNode(1,u_94) MDDNode(1,u_95), remove node: MDDNode(1,u_81)
+1 46 51
+layer 1 incoming edges: 6
+only split: [MDDArc('feed', MDDNode(0, 's'), MDDNode(1, 'u_83'))]
+split the incoming edges: 6 1 5
+the value pair of raw_data is: 492
+split the outgoings edges: 28 2 26 28
+add node: MDDNode(1,u_96) MDDNode(1,u_97), remove node: MDDNode(1,u_83)
+1 47 51
+layer 1 incoming edges: 5
+only split: [MDDArc('myfox_homecontrol', MDDNode(0, 's'), MDDNode(1, 'u_18'))]
+split the incoming edges: 5 1 4
+the value pair of raw_data is: 492
+split the outgoings edges: 18 5 13 18
+add node: MDDNode(1,u_98) MDDNode(1,u_99), remove node: MDDNode(1,u_18)
+1 48 51
+layer 1 incoming edges: 5
+only split: [MDDArc('best_buy', MDDNode(0, 's'), MDDNode(1, 'u_85'))]
+split the incoming edges: 5 1 4
+the value pair of raw_data is: 492
+split the outgoings edges: 14 4 10 14
+add node: MDDNode(1,u_100) MDDNode(1,u_101), remove node: MDDNode(1,u_85)
+1 49 51
+layer 1 incoming edges: 5
+only split: [MDDArc('diigo', MDDNode(0, 's'), MDDNode(1, 'u_87'))]
+split the incoming edges: 5 1 4
+the value pair of raw_data is: 492
+split the outgoings edges: 12 2 12 14
+add node: MDDNode(1,u_102) MDDNode(1,u_103), remove node: MDDNode(1,u_87)
+1 50 51
+layer 1 incoming edges: 5
+only split: [MDDArc('sina_weibo', MDDNode(0, 's'), MDDNode(1, 'u_89'))]
+split the incoming edges: 5 1 4
+the value pair of raw_data is: 492
+split the outgoings edges: 37 2 35 37
+add node: MDDNode(1,u_104) MDDNode(1,u_105), remove node: MDDNode(1,u_89)
+dump to the pickle
+the graph width list : [1, 51, 1, 1, 1, 1]
+it 1 train 0.3429   train_h 0.1643   train_v 0.9348   dev 0.2944   dev_h 0.1764   dev_v 0.9272   new_test 0.3611   new_test_h 0.1597   new_test_v 0.9426   save acc: 0.3611 T: 2020-01-10T05:19 
+it 2 train 0.4306   train_h 0.1424   train_v 0.9448   dev 0.3344   dev_h 0.1664   dev_v 0.9373   new_test 0.4363   new_test_h 0.1409   new_test_v 0.9547   save acc: 0.4363 T: 2020-01-10T05:22 
+it 3 train 0.4776   train_h 0.1306   train_v 0.9458   dev 0.3365   dev_h 0.1659   dev_v 0.9260   new_test 0.4610   new_test_h 0.1348   new_test_v 0.9515   save acc: 0.4610 T: 2020-01-10T05:25 
+it 4 train 0.5193   train_h 0.1202   train_v 0.9486   dev 0.3426   dev_h 0.1644   dev_v 0.9291   new_test 0.4614   new_test_h 0.1347   new_test_v 0.9486   save acc: 0.4614 T: 2020-01-10T05:28 
+it 5 train 0.5496   train_h 0.1126   train_v 0.9543   dev 0.3493   dev_h 0.1627   dev_v 0.9294   new_test 0.4719   new_test_h 0.1320   new_test_v 0.9523   save acc: 0.4719 T: 2020-01-10T05:31 
+it 6 train 0.5733   train_h 0.1067   train_v 0.9542   dev 0.3397   dev_h 0.1651   dev_v 0.9327   new_test 0.4614   new_test_h 0.1347   new_test_v 0.9567   
+it 7 train 0.5903   train_h 0.1024   train_v 0.9570   dev 0.3493   dev_h 0.1627   dev_v 0.9323   new_test 0.4759   new_test_h 0.1310   new_test_v 0.9555   
+it 8 train 0.6069   train_h 0.0983   train_v 0.9582   dev 0.3443   dev_h 0.1639   dev_v 0.9282   new_test 0.4674   new_test_h 0.1331   new_test_v 0.9600   
+it 9 train 0.6186   train_h 0.0953   train_v 0.9593   dev 0.3445   dev_h 0.1639   dev_v 0.9233   new_test 0.4747   new_test_h 0.1313   new_test_v 0.9539   
+it 10 train 0.6273   train_h 0.0932   train_v 0.9604   dev 0.3445   dev_h 0.1639   dev_v 0.9241   new_test 0.4719   new_test_h 0.1320   new_test_v 0.9527   
+it 11 train 0.6356   train_h 0.0911   train_v 0.9609   dev 0.3390   dev_h 0.1653   dev_v 0.9282   new_test 0.4691   new_test_h 0.1327   new_test_v 0.9559   
+it 12 train 0.6418   train_h 0.0896   train_v 0.9634   dev 0.3431   dev_h 0.1642   dev_v 0.9315   new_test 0.4662   new_test_h 0.1334   new_test_v 0.9547   
+it 13 train 0.6468   train_h 0.0883   train_v 0.9636   dev 0.3431   dev_h 0.1642   dev_v 0.9315   new_test 0.4703   new_test_h 0.1324   new_test_v 0.9503   
+it 14 train 0.6499   train_h 0.0875   train_v 0.9626   dev 0.3414   dev_h 0.1647   dev_v 0.9303   new_test 0.4699   new_test_h 0.1325   new_test_v 0.9519   
+it 15 train 0.6532   train_h 0.0867   train_v 0.9647   dev 0.3406   dev_h 0.1648   dev_v 0.9344   new_test 0.4679   new_test_h 0.1330   new_test_v 0.9474   
+it 16 train 0.6556   train_h 0.0861   train_v 0.9634   dev 0.3380   dev_h 0.1655   dev_v 0.9349   new_test 0.4679   new_test_h 0.1330   new_test_v 0.9490   

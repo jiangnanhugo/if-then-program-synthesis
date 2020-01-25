@@ -1,0 +1,19 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-80/', width='80')
+configure: {'max_word_id': 3782, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 100, 'keep_prob': 0.75, 'memory_size': 100, 'num_units': 100, 'use_embedding': True, 'epoches': 12, 'batch_size': 20, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.02, 'decay_rate': 0.9, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8549
+model/ifttt/width-80/dataset-w-80.pkl
+load_from_json content
+the graph width list : [1, 80, 1, 80, 1, 1]
+it 1 train 36.16   train_h 38.19   train_v 99.55   dev 28.64   dev_h 43.41   dev_v 99.25   new_test 35.95   new_test_h 33.64   new_test_v 99.76   save: 35.95 T: 2020-01-14T11:22 
+it 2 train 42.51   train_h 34.34   train_v 99.43   dev 30.83   dev_h 41.72   dev_v 99.49   new_test 41.29   new_test_h 30.89   new_test_v 99.23   save: 41.29 T: 2020-01-14T11:28 
+it 3 train 48.16   train_h 30.69   train_v 99.78   dev 31.51   dev_h 41.27   dev_v 99.45   new_test 42.09   new_test_h 30.29   new_test_v 99.64   save: 42.09 T: 2020-01-14T11:34 
+it 4 train 52.15   train_h 28.53   train_v 99.65   dev 32.18   dev_h 41.12   dev_v 99.49   new_test 41.93   new_test_h 31.15   new_test_v 99.51   save: 41.93 T: 2020-01-14T11:40 
+it 5 train 54.45   train_h 27.23   train_v 99.72   dev 32.28   dev_h 41.07   dev_v 99.59   new_test 42.14   new_test_h 30.77   new_test_v 99.51   save: 42.14 T: 2020-01-14T11:46 
+it 6 train 56.60   train_h 25.94   train_v 99.73   dev 32.11   dev_h 40.97   dev_v 99.52   new_test 40.92   new_test_h 31.12   new_test_v 99.43   
+it 7 train 58.01   train_h 25.11   train_v 99.76   dev 31.99   dev_h 41.16   dev_v 99.64   new_test 41.57   new_test_h 31.09   new_test_v 99.35   
+it 8 train 59.00   train_h 24.51   train_v 99.71   dev 31.34   dev_h 41.62   dev_v 99.45   new_test 42.01   new_test_h 30.88   new_test_v 99.27   
+it 9 train 59.68   train_h 24.19   train_v 99.73   dev 31.56   dev_h 41.39   dev_v 99.49   new_test 41.37   new_test_h 31.27   new_test_v 99.23   
+it 10 train 60.12   train_h 23.94   train_v 99.76   dev 31.17   dev_h 41.66   dev_v 99.45   new_test 41.49   new_test_h 31.18   new_test_v 99.39   
+it 11 train 60.61   train_h 23.65   train_v 99.75   dev 30.86   dev_h 41.83   dev_v 99.42   new_test 41.33   new_test_h 31.09   new_test_v 99.23   
+it 12 train 60.64   train_h 23.61   train_v 99.73   dev 31.15   dev_h 41.62   dev_v 99.45   new_test 41.08   new_test_h 31.19   new_test_v 99.31   
+it 13 train 60.83   train_h 23.52   train_v 99.73   dev 30.81   dev_h 41.65   dev_v 99.45   new_test 41.25   new_test_h 31.42   new_test_v 99.23   

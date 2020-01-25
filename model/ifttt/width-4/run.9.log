@@ -1,0 +1,97 @@
+args Namespace(config='configs/config_l.json', dataset='dataset/IFTTT/msr_data.pkl', load_model=None, mode='train', output='model/ifttt/width-4/pid-9-', width='4')
+configure: {'max_word_id': 4000, 'bidirectional': True, 'cell_type': 'lstm', 'decoder': 'attention', 'embedding_size': 50, 'keep_prob': 0.5, 'memory_size': 25, 'num_layers': 1, 'num_units': 50, 'use_embedding': True, 'epoches': 20, 'batch_size': 32, 'init': {'name': 'random_uniform_initializer', 'scale': 0.1}, 'lr_scheduler': {'decay_steps': 5000, 'init_lr': 0.01, 'staircase': True}, 'max_grad_norm': 1, 'optimizer': 'AdamOptimizer'}
+# path 8580
+save to model/ifttt/width-4/pid-9-IFTTT-w-4.json
+load json
+numArcLayers: 5
+1 1 4
+layer 1 incoming edges: 111
+split the incoming edges: 111 47 64
+the value pair of raw_data is: 492
+split the outgoings edges: 443 187 272 459
+add node: MDDNode(1,u_6) MDDNode(1,u_7), remove node: MDDNode(1,u_1)
+2 1 4
+layer 2 incoming edges: 459
+split the incoming edges: 459 231 228
+the value pair of raw_data is: 6265
+split the outgoings edges: 88 88 88 176
+add node: MDDNode(2,u_8) MDDNode(2,u_9), remove node: MDDNode(2,u_2)
+3 1 4
+layer 3 incoming edges: 176
+split the incoming edges: 176 67 109
+the value pair of raw_data is: 202
+split the outgoings edges: 161 102 143 245
+add node: MDDNode(3,u_10) MDDNode(3,u_11), remove node: MDDNode(3,u_3)
+4 1 4
+layer 4 incoming edges: 245
+split the incoming edges: 245 120 125
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_12) MDDNode(4,u_13), remove node: MDDNode(4,u_4)
+1 2 4
+layer 1 incoming edges: 47
+split the incoming edges: 47 23 24
+the value pair of raw_data is: 492
+split the outgoings edges: 187 94 103 197
+add node: MDDNode(1,u_14) MDDNode(1,u_15), remove node: MDDNode(1,u_6)
+layer 1 incoming edges: 64
+split the incoming edges: 64 28 36
+the value pair of raw_data is: 492
+split the outgoings edges: 272 91 189 280
+add node: MDDNode(1,u_16) MDDNode(1,u_17), remove node: MDDNode(1,u_7)
+2 2 4
+layer 2 incoming edges: 241
+split the incoming edges: 241 126 115
+the value pair of raw_data is: 6265
+split the outgoings edges: 88 83 88 171
+add node: MDDNode(2,u_18) MDDNode(2,u_19), remove node: MDDNode(2,u_8)
+layer 2 incoming edges: 236
+split the incoming edges: 236 125 111
+the value pair of raw_data is: 6265
+split the outgoings edges: 88 85 86 171
+add node: MDDNode(2,u_20) MDDNode(2,u_21), remove node: MDDNode(2,u_9)
+3 2 4
+layer 3 incoming edges: 128
+split the incoming edges: 128 56 72
+the value pair of raw_data is: 202
+split the outgoings edges: 102 79 85 164
+add node: MDDNode(3,u_22) MDDNode(3,u_23), remove node: MDDNode(3,u_10)
+layer 3 incoming edges: 214
+split the incoming edges: 214 97 117
+the value pair of raw_data is: 202
+split the outgoings edges: 143 129 125 254
+add node: MDDNode(3,u_24) MDDNode(3,u_25), remove node: MDDNode(3,u_11)
+4 2 4
+layer 4 incoming edges: 204
+split the incoming edges: 204 104 100
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_26) MDDNode(4,u_27), remove node: MDDNode(4,u_12)
+layer 4 incoming edges: 214
+split the incoming edges: 214 92 122
+the value pair of raw_data is: 161
+split the outgoings edges: 1 1 1 2
+add node: MDDNode(4,u_28) MDDNode(4,u_29), remove node: MDDNode(4,u_13)
+The bucket size: [25]
+the graph width list : [1, 4, 4, 4, 4, 1]
+iter= 1 dev 0.2659   test 0.2463   intelligible 0.3095   english 0.2570   gold 0.5034   save acc: 0.3095 time: 2019-11-27T00:48 
+iter= 2 dev 0.2960   test 0.2897   intelligible 0.3761   english 0.3090   gold 0.6438   save acc: 0.3761 time: 2019-11-27T00:50 
+iter= 3 dev 0.3064   test 0.2993   intelligible 0.3875   english 0.3203   gold 0.7038   save acc: 0.3875 time: 2019-11-27T00:52 
+iter= 4 dev 0.3107   test 0.2928   intelligible 0.3761   english 0.3111   gold 0.6318   
+iter= 5 dev 0.3168   test 0.3021   intelligible 0.3909   english 0.3221   gold 0.6627   save acc: 0.3909 time: 2019-11-27T00:58 
+iter= 6 dev 0.3204   test 0.3042   intelligible 0.3932   english 0.3254   gold 0.6781   save acc: 0.3932 time: 2019-11-27T01:00 
+iter= 7 dev 0.3218   test 0.3112   intelligible 0.4011   english 0.3308   gold 0.7295   save acc: 0.4011 time: 2019-11-27T01:03 
+iter= 8 dev 0.3185   test 0.3174   intelligible 0.4140   english 0.3418   gold 0.7329   save acc: 0.4140 time: 2019-11-27T01:06 
+iter= 9 dev 0.3220   test 0.3135   intelligible 0.4053   english 0.3349   gold 0.6849   
+iter= 10 dev 0.3175   test 0.3076   intelligible 0.3973   english 0.3272   gold 0.6901   
+iter= 11 dev 0.3166   test 0.3083   intelligible 0.3977   english 0.3281   gold 0.6764   
+iter= 12 dev 0.3164   test 0.3125   intelligible 0.4027   english 0.3334   gold 0.6832   
+iter= 13 dev 0.3182   test 0.3073   intelligible 0.3973   english 0.3275   gold 0.6712   
+iter= 14 dev 0.3201   test 0.3112   intelligible 0.4038   english 0.3319   gold 0.6815   
+iter= 15 dev 0.3182   test 0.3135   intelligible 0.4034   english 0.3331   gold 0.6747   
+iter= 16 dev 0.3192   test 0.3120   intelligible 0.4027   english 0.3322   gold 0.6781   
+iter= 17 dev 0.3194   test 0.3107   intelligible 0.4023   english 0.3316   gold 0.6747   
+iter= 18 dev 0.3192   test 0.3112   intelligible 0.4008   english 0.3314   gold 0.6747   
+iter= 19 dev 0.3166   test 0.3104   intelligible 0.4015   english 0.3311   gold 0.6712   
+iter= 20 dev 0.3185   test 0.3117   intelligible 0.4034   english 0.3325   gold 0.6729   
+iter= 21 dev 0.3197   test 0.3127   intelligible 0.4038   english 0.3337   gold 0.6781   
