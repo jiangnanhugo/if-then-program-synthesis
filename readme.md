@@ -16,11 +16,11 @@ We have provided the bash script for runing on two different dataset with differ
 
 ### datasets
 in the folder `dataset/`.
-- IFTTT are based on paper from [latent attention for if-then program synthesis].
+- IFTTT are based on paper from [latent attention for if-then program synthesis](https://papers.nips.cc/paper/6284-latent-attention-for-if-then-program-synthesis.pdf).
 - Zapier are directly collected from `zapier.com` websites.
 
 ### results
 in the `model/` folder. we include results of two datasets in terms of two metric.
 
 ### implementation of MDD
-it is in the `tf_utils/mdd` folder. We include the implementation of `arc` and `state node` and `build mdd` in corresponding files.
+it is in the `tf_utils/mdd` folder, and is based on the source code `https://github.com/rkimura47/pymdd`. We include the implementation of `arc` and `state node` and `build mdd` in corresponding files.
